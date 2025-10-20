@@ -1423,3 +1423,54 @@ figure.cover {
     color: #23212d !important;
   }
 }
+
+/* Beginning Table of Contents */
+#table-of-contents {
+  margin-bottom: 2rem;
+  
+  .toc-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    
+    .toc-item {
+      margin-bottom: 0.25rem;
+      
+      &.toc-level-h1 {
+        font-weight: bold;
+        margin-top: 0.5rem;
+      }
+      
+      &.toc-level-h2 {
+        padding-left: 1rem;
+      }
+      
+      &.toc-level-h3 {
+        padding-left: 2rem;
+        font-size: 0.9rem;
+      }
+      
+      &.toc-level-h4 {
+        padding-left: 3rem;
+        font-size: 0.85rem;
+      }
+      
+      &.toc-level-h5,
+      &.toc-level-h6 {
+        padding-left: 4rem;
+        font-size: 0.8rem;
+      }
+      
+      .toc-link {
+        color: var(--global-text-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        
+        &:hover {
+          color: var(--global-theme-color);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
