@@ -171,33 +171,35 @@
 {% if page.toc and page.toc.beginning %}
   <!-- Beginning Table of Contents -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       var tocContainer = document.getElementById('toc');
       if (!tocContainer) return;
-      
-      var headings = document.querySelectorAll('#markdown-content h1, #markdown-content h2, #markdown-content h3, #markdown-content h4, #markdown-content h5, #markdown-content h6');
+
+      var headings = document.querySelectorAll(
+        '#markdown-content h1, #markdown-content h2, #markdown-content h3, #markdown-content h4, #markdown-content h5, #markdown-content h6'
+      );
       if (headings.length === 0) return;
-      
+
       var tocList = document.createElement('ul');
       tocList.className = 'toc-list';
-      
-      headings.forEach(function(heading, index) {
+
+      headings.forEach(function (heading, index) {
         if (!heading.id) {
           heading.id = 'heading-' + index;
         }
-        
+
         var listItem = document.createElement('li');
         listItem.className = 'toc-item toc-level-' + heading.tagName.toLowerCase();
-        
+
         var link = document.createElement('a');
         link.href = '#' + heading.id;
         link.textContent = heading.textContent;
         link.className = 'toc-link';
-        
+
         listItem.appendChild(link);
         tocList.appendChild(listItem);
       });
-      
+
       tocContainer.appendChild(tocList);
     });
   </script>

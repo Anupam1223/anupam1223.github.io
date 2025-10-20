@@ -1,8 +1,12 @@
-name: Comment on pull request
+name: Comment on pull request (DISABLED)
+
+# Disabled since prettier workflow is disabled
+# on:
+#   repository_dispatch:
+#     types: [prettier-failed-on-pr]
 
 on:
-  repository_dispatch:
-    types: [prettier-failed-on-pr]
+  workflow_dispatch: # Only manual trigger
 
 jobs:
   comment:

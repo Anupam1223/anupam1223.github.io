@@ -1,14 +1,19 @@
-name: Prettier code formatter
+name: Prettier code formatter (DISABLED)
+
+# Prettier formatting check disabled to allow Jekyll build without Node.js
+# Re-enable by uncommenting the 'on' section below
+# on:
+#   pull_request:
+#     branches:
+#       - master
+#       - main
+#   push:
+#     branches:
+#       - master
+#       - main
 
 on:
-  pull_request:
-    branches:
-      - master
-      - main
-  push:
-    branches:
-      - master
-      - main
+  workflow_dispatch: # Only manual trigger
 
 jobs:
   check:
