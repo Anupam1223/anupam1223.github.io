@@ -11,10 +11,12 @@ nav_order: 2
 
 <!-- Bibsearch Feature -->
 
-{% include bib_search.liquid %}
+{% comment %}
+Bibliography search and display functionality disabled for GitHub Pages compatibility.
+The jekyll-scholar plugin is not supported by GitHub Pages.
+{% endcomment %}
 
 <div class="publications">
-
-{% bibliography %}
-
+  <p><em>Publications functionality requires jekyll-scholar plugin which is not available in GitHub Pages environment.</em></p>
+  <p>To enable publications, consider using a custom GitHub Actions workflow instead of the standard GitHub Pages build.</p>
 </div>
