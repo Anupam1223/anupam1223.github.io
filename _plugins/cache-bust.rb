@@ -14,7 +14,13 @@ module Jekyll
       end
 
       def digest!
-        [file_name, '?', Digest::MD5.hexdigest(file_contents)].join
+        begin
+          [file_name, '?', Digest::MD5.hexdigest(file_contents)].join
+        rescue => e
+          # Fallback for GitHub Pages environment where file access might be restricted
+          Jekyll.logger.debug "CacheBust: File access failed for #{file_name}, using timestamp fallback"
+          [file_name, '?', Time.now.to_i.to_s].join
+        end
       end
 
       private
@@ -27,10 +33,18 @@ module Jekyll
       def file_content
         local_file_name = file_name.slice((file_name.index('assets/')..-1))
         File.read(local_file_name)
+      rescue => e
+        # Fallback content for file access issues
+        file_name
       end
 
       def file_contents
-        is_directory? ? file_content : directory_files_content
+        begin
+          is_directory? ? file_content : directory_files_content
+        rescue => e
+          # Return filename as fallback content
+          file_name
+        end
       end
 
       def is_directory?
