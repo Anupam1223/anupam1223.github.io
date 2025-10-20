@@ -21,7 +21,11 @@ layout: default
   {% if page.related_publications %}
     <h2>References</h2>
     <div class="publications">
-      {% bibliography --cited_in_order %}
+      {% comment %}
+      The jekyll-scholar plugin is not available in GitHub Pages.
+      Bibliography functionality has been disabled for compatibility.
+      {% endcomment %}
+      <p><em>Bibliography functionality requires jekyll-scholar plugin which is not available in GitHub Pages environment.</em></p>
     </div>
   {% endif %}
 
