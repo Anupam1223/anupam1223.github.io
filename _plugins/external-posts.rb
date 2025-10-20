@@ -10,23 +10,52 @@ module ExternalPosts
     priority :high
 
     def generate(site)
+      # Skip external posts in CI/production environment to avoid network issues
+      if ENV['CI'] || ENV['JEKYLL_ENV'] == 'production'
+        Jekyll.logger.info "External Posts:", "Skipping external post fetching in CI/production environment"
+        return
+      end
+
       if site.config['external_sources'] != nil
         site.config['external_sources'].each do |src|
-          puts "Fetching external posts from #{src['name']}:"
-          if src['rss_url']
-            fetch_from_rss(site, src)
-          elsif src['posts']
-            fetch_from_urls(site, src)
+          begin
+            puts "Fetching external posts from #{src['name']}:"
+            if src['rss_url']
+              fetch_from_rss(site, src)
+            elsif src['posts']
+              fetch_from_urls(site, src)
+            end
+          rescue => e
+            Jekyll.logger.warn "External Posts:", "Failed to fetch from #{src['name']}: #{e.message}"
+            next # Continue with next source instead of failing the build
           end
         end
       end
     end
 
     def fetch_from_rss(site, src)
-      xml = HTTParty.get(src['rss_url']).body
-      return if xml.nil?
-      feed = Feedjira.parse(xml)
-      process_entries(site, src, feed.entries)
+      begin
+        response = HTTParty.get(src['rss_url'])
+        
+        unless response.success?
+          Jekyll.logger.warn "External Posts:", "HTTP #{response.code} for #{src['rss_url']}"
+          return
+        end
+
+        xml = response.body
+        return if xml.nil? || xml.empty?
+        
+        feed = Feedjira.parse(xml)
+        if feed && feed.entries
+          process_entries(site, src, feed.entries)
+        else
+          Jekyll.logger.warn "External Posts:", "No valid feed entries found for #{src['name']}"
+        end
+      rescue Feedjira::NoParserAvailable => e
+        Jekyll.logger.warn "External Posts:", "Invalid RSS/XML format from #{src['name']}: #{e.message}"
+      rescue => e
+        Jekyll.logger.warn "External Posts:", "Error fetching RSS from #{src['name']}: #{e.message}"
+      end
     end
 
     def process_entries(site, src, entries)
