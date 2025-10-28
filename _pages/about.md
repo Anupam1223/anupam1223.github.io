@@ -2,12 +2,12 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Machine Learning at the Edge for Environmental & Physical Sciences</a>. </n> Beaumont, TX. (409) 880-7011.
+subtitle: <em>Machine Learning at the Edge for Environmental & Physical Sciences</em>
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: true # crops the image to make it circular
   more_info: >
     <p>1401 little elm trail</p>
     <p>Austin, TX</p>
@@ -26,8 +26,12 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I'm a **Machine Learning Engineer** focused on _edge AI for environmental and physical sciences_. I enjoy building reliable models and systems that run on constrained hardware and still deliver high-impact insights in the field.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+My interests include _embedded ML_, _sensor fusion_, _geospatial data_, and _efficient deep learning_ (quantization, pruning, distillation). I also care a lot about **engineering best practices** and **reproducible ML**.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Recently, I've been working on turning research ideas into robust, production-ready pipelines at the edge—covering data collection, labeling, model training, on-device optimization, and deployment.
+
+If you’d like to collaborate or chat about projects, feel free to reach out via [email](mailto:{{ site.data.socials.email }}).
+
+Please see my [resume]({{ '/cv/' | relative_url }}) for more details about my background, experience, and selected projects.
