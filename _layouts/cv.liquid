@@ -25,6 +25,35 @@ layout: default
         <p class="post-description">{{ page.description }}</p>
       {% endif %}
     </header>
+    {% if page.cv_pdf %}
+      <p class="mt-2">
+        <a
+          {% if page.cv_pdf contains '://' %}
+            href="{{ page.cv_pdf }}"
+          {% else %}
+            href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}"
+          {% endif %}
+          class="btn btn-link p-0"
+          download
+        >
+          <i class="fa-solid fa-download"></i> Download Resume
+        </a>
+      </p>
+      <div class="resume-pdf-container mt-3">
+        <embed
+          src="{% if page.cv_pdf contains '://' %}{{ page.cv_pdf }}{% else %}{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}{% endif %}"
+          type="application/pdf"
+          width="100%"
+          height="800px"
+          style="border: 1px solid #ddd; border-radius: 8px;"
+        />
+      </div>
+      <style>
+        .resume-pdf-container { margin-top: 2rem; text-align: center; }
+        .resume-pdf-container embed { box-shadow: 0 4px 6px rgba(0,0,0,.1); max-width: 100%; }
+        @media (max-width: 768px) { .resume-pdf-container embed { height: 600px; } }
+      </style>
+    {% endif %}
 
     <article>
       <div class="cv">
@@ -76,6 +105,35 @@ layout: default
         <p class="post-description">{{ page.description }}</p>
       {% endif %}
     </header>
+    {% if page.cv_pdf %}
+      <p class="mt-2">
+        <a
+          {% if page.cv_pdf contains '://' %}
+            href="{{ page.cv_pdf }}"
+          {% else %}
+            href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}"
+          {% endif %}
+          class="btn btn-link p-0"
+          download
+        >
+          <i class="fa-solid fa-download"></i> Download Resume
+        </a>
+      </p>
+      <div class="resume-pdf-container mt-3">
+        <embed
+          src="{% if page.cv_pdf contains '://' %}{{ page.cv_pdf }}{% else %}{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}{% endif %}"
+          type="application/pdf"
+          width="100%"
+          height="800px"
+          style="border: 1px solid #ddd; border-radius: 8px;"
+        />
+      </div>
+      <style>
+        .resume-pdf-container { margin-top: 2rem; text-align: center; }
+        .resume-pdf-container embed { box-shadow: 0 4px 6px rgba(0,0,0,.1); max-width: 100%; }
+        @media (max-width: 768px) { .resume-pdf-container embed { height: 600px; } }
+      </style>
+    {% endif %}
 
     <article>
       <div class="cv">
