@@ -28,8 +28,12 @@ layout: default
           {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
       30vw, 95vw"{% endcapture %}
           {%
+            comment %}
+              Avoid responsive srcset for the profile image so it works on GitHub Pages without imagemagick-generated WebP files.
+            {% endcomment %}
+          {%
             include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
+            avoid_scaling=true cache_bust=true
           %}
         {% endif %}
         {% if page.profile.more_info %}
