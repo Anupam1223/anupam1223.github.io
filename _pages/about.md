@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: <a href='#'>Machine Learning at the Edge for Environmental & Physical Sciences</a>. </n> Beaumont, TX. (409) 880-7011.
 
 profile:
   align: right
