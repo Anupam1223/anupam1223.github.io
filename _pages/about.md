@@ -12,7 +12,7 @@ profile:
     <p>1401 little elm trail</p>
     <p>Austin, TX</p>
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
+selected_papers: false # hide selected publications section (plugin not available on GitHub Pages)
 social: true # includes social icons at the bottom of the page
 
 announcements:
