@@ -1,14 +1,11 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - Anupam1223
 
 repo_description_lines_max: 2
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons
+  # Add your own repositories here to pin them on the page
+  - Anupam1223/ml_fastapi
+  - Anupam1223/ml_pipeline
+  - Anupam1223/Foodwagon
+  - Anupam1223/Codolytics
