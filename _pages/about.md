@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: <em>Machine Learning at the Edge for Environmental & Physical Sciences</em>
 
