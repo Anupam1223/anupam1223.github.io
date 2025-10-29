@@ -44,40 +44,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/people/";
           },
-        },{id: "post-instructions-for-setting-up-twilio-for-use-in-applications",
-        
-          title: 'Instructions for setting up Twilio for use in applications <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
-        
-        description: "Beginner-friendly overview of Twilio setup, access tokens, TwiML, and conference calls with the Twilio Voice JS SDK.",
-        section: "Posts",
-        handler: () => {
-          
-            window.open("https://medium.com/@anupam.siwakoti/instructions-for-setting-up-twilio-for-use-in-applications-ac607ca8b949", "_blank");
-          
-        },
-      },{id: "post-a-post-with-plotly-js",
-        
-          title: "a post with plotly.js",
-        
-        description: "this is what included plotly.js code could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/plotly/";
-          
-        },
-      },{id: "post-a-post-with-image-galleries",
-        
-          title: "a post with image galleries",
-        
-        description: "this is what included image galleries could look like",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2024/photo-gallery/";
-          
-        },
-      },{id: "post-a-post-with-typograms",
+        },{id: "post-a-post-with-typograms",
         
           title: "a post with typograms",
         
@@ -251,6 +218,17 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/blog/2023/table-of-contents/";
+          
+        },
+      },{id: "post-instructions-for-setting-up-twilio-for-use-in-applications",
+        
+          title: 'Instructions for setting up Twilio for use in applications <svg width="1.2rem" height="1.2rem" top=".5rem" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M17 13.5v6H5v-12h6m3-3h6v6m0-6-9 9" class="icon_svg-stroke" stroke="#999" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        
+        description: "Beginner-friendly overview of Twilio setup, access tokens, TwiML, and conference calls with the Twilio Voice JS SDK.",
+        section: "Posts",
+        handler: () => {
+          
+            window.open("https://medium.com/@anupam.siwakoti/instructions-for-setting-up-twilio-for-use-in-applications-ac607ca8b949", "_blank");
           
         },
       },{id: "post-a-post-with-giscus-comments",
