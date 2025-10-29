@@ -26,11 +26,14 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I'm a **Machine Learning Engineer** focused on _edge AI for environmental and physical sciences_. I enjoy building reliable models and systems that run on constrained hardware and still deliver high-impact insights in the field.
+I'm a systems-minded engineer who builds end-to-end solutions—from embedded devices to production ML and backend services. Beyond machine learning, I work across C++, Python, databases, and embedded platforms to turn ideas into reliable, deployable systems.
 
-My interests include _embedded ML_, _sensor fusion_, _geospatial data_, and _efficient deep learning_ (quantization, pruning, distillation). I also care a lot about **engineering best practices** and **reproducible ML**.
+- C++: custom statistical models with physics‑inspired/quantum‑influenced techniques.
+- Python ML: particle-identification pipelines with PyTorch and scikit-learn at the Thomas Jefferson National Accelerator Facility.
+- Backend: FastAPI and Django services; data modeling and performance tuning across PostgreSQL, EdgeDB, and MySQL.
+- Edge/Embedded: System‑in‑Package (SiP) sensor integration on ARM Cortex‑M4, plus embedded Linux and on-device optimization.
 
-Recently, I've been working on turning research ideas into robust, production-ready pipelines at the edge—covering data collection, labeling, model training, on-device optimization, and deployment.
+At CMMS, I split my time between software engineering and research administration, including patent development around a SiP-based multi‑sensor platform. I care deeply about reproducibility, clear interfaces, and making research‑grade ideas production‑ready.
 
 If you’d like to collaborate or chat about projects, feel free to reach out via [email](mailto:{{ site.data.socials.email }}).
 
