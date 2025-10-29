@@ -346,18 +346,7 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "news-a-simple-inline-announcement",
-          title: 'A simple inline announcement.',
-          description: "",
-          section: "News",},{id: "news-a-long-announcement-with-details",
-          title: 'A long announcement with details',
-          description: "",
-          section: "News",handler: () => {
-              window.location.href = "/news/announcement_2/";
-            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
-          title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
-          description: "",
-          section: "News",},{id: "news-met-with-the-octavo-team-and-their-cto-to-explore-integrating-my-edge-and-software-sdks-we-discussed-a-joint-path-for-future-collaboration-and-a-technical-roadmap-for-sdk-compatibility-and-deployment",
+            },},{id: "news-met-with-the-octavo-team-and-their-cto-to-explore-integrating-my-edge-and-software-sdks-we-discussed-a-joint-path-for-future-collaboration-and-a-technical-roadmap-for-sdk-compatibility-and-deployment",
           title: 'Met with the Octavo team and their CTO to explore integrating my edge...',
           description: "",
           section: "News",},{id: "news-met-with-the-honeywell-team-to-discuss-applying-the-edge-sdk-within-one-of-their-production-pipelines-agreed-on-next-steps-to-prototype-integration-and-evaluate-results-on-real-operational-data",
