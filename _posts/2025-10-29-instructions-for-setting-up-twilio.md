@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Instructions for setting up Twilio for use in applications"
-date: 2025-10-29
+date: 2023-03-17
 redirect: https://medium.com/@anupam.siwakoti/instructions-for-setting-up-twilio-for-use-in-applications-ac607ca8b949
 description: "Beginner-friendly overview of Twilio setup, access tokens, TwiML, and conference calls with the Twilio Voice JS SDK."
 categories: [twilio, voice, tutorial]
