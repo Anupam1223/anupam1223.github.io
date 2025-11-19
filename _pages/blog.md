@@ -60,15 +60,15 @@ pagination:
 
   .tag-category-list a {
     text-decoration: none;
-    color: #667eea;
+    color: var(--global-theme-color);
     font-weight: 500;
     transition: all 0.3s ease;
     border-bottom: 2px solid transparent;
   }
 
   .tag-category-list a:hover {
-    color: #764ba2;
-    border-bottom-color: #764ba2;
+    color: var(--global-hover-color);
+    border-bottom-color: var(--global-hover-color);
   }
 
   .featured-posts {
@@ -76,7 +76,7 @@ pagination:
   }
 
   .featured-card {
-    background: white;
+    background: var(--global-card-bg-color);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -87,7 +87,7 @@ pagination:
 
   .featured-card:hover {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    border-color: #667eea;
+    border-color: var(--global-theme-color);
     transform: translateY(-4px);
   }
 
@@ -112,12 +112,12 @@ pagination:
     font-size: 1.4rem;
     font-weight: 700;
     margin: 0.5rem 0 1rem;
-    color: #1f2937;
+    color: var(--global-text-color);
     line-height: 1.4;
   }
 
   .card-text {
-    color: #6b7280;
+    color: var(--global-text-color-light);
     font-size: 0.95rem;
     margin-bottom: 1.2rem;
     line-height: 1.6;
@@ -127,19 +127,19 @@ pagination:
     display: flex;
     gap: 0.8rem;
     font-size: 0.85rem;
-    color: #9ca3af;
+    color: var(--global-text-color-light);
     flex-wrap: wrap;
     align-items: center;
   }
 
   .post-meta a {
-    color: #667eea;
+    color: var(--global-theme-color);
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
   .post-meta a:hover {
-    color: #764ba2;
+    color: var(--global-hover-color);
   }
 
   .post-list {
@@ -149,12 +149,12 @@ pagination:
   }
 
   .post-list li {
-    background: white;
+    background: var(--global-card-bg-color);
     border-radius: 12px;
     padding: 2rem;
     margin-bottom: 1.8rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border-left: 4px solid #667eea;
+    border-left: 4px solid var(--global-theme-color);
     transition: all 0.3s ease;
   }
 
@@ -168,7 +168,7 @@ pagination:
   }
 
   .post-title {
-    color: #1f2937;
+    color: var(--global-text-color);
     text-decoration: none;
     font-size: 1.4rem;
     font-weight: 700;
@@ -179,11 +179,11 @@ pagination:
   }
 
   .post-title:hover {
-    color: #667eea;
+    color: var(--global-theme-color);
   }
 
   .post-description {
-    color: #6b7280;
+    color: var(--global-text-color-light);
     font-size: 1rem;
     margin: 0.8rem 0 1.2rem;
     line-height: 1.6;
@@ -199,7 +199,7 @@ pagination:
   }
 
   .post-tags a {
-    color: #667eea;
+    color: var(--global-theme-color);
     text-decoration: none;
     transition: all 0.2s ease;
     display: inline-flex;
@@ -208,13 +208,13 @@ pagination:
   }
 
   .post-tags a:hover {
-    color: #764ba2;
+    color: var(--global-hover-color);
   }
 
   .divider {
     margin: 3rem 0;
     border: none;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--global-divider-color);
   }
 
   .row.post-row {
@@ -287,7 +287,7 @@ pagination:
   {% assign featured_posts = site.posts | where: "featured", "true" %}
   {% if featured_posts.size > 0 %}
     <div class="featured-posts">
-      <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #1f2937;">
+      <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--global-text-color);">
         <i class="fa-solid fa-star" style="color: #fbbf24;"></i> Featured
       </h2>
       {% assign is_even = featured_posts.size | modulo: 2 %}
@@ -326,7 +326,7 @@ pagination:
     <hr class="divider">
   {% endif %}
 
-  <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: #1f2937;">Latest Posts</h2>
+  <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--global-text-color);">Latest Posts</h2>
   <ul class="post-list">
     {% if page.pagination.enabled %}
       {% assign postlist = paginator.posts %}
@@ -363,33 +363,33 @@ pagination:
             </h3>
             <p class="post-description">{{ post.description }}</p>
             <div class="post-tags">
-              <span style="color: #9ca3af;"><i class="fa-solid fa-calendar fa-sm"></i> {{ post.date | date: '%B %d, %Y' }}</span>
-              <span style="color: #d1d5db;">&bull;</span>
-              <span style="color: #9ca3af;"><i class="fa-solid fa-clock fa-sm"></i> {{ read_time }} min</span>
+              <span style="color: var(--global-text-color-light);"><i class="fa-solid fa-calendar fa-sm"></i> {{ post.date | date: '%B %d, %Y' }}</span>
+              <span style="color: var(--global-divider-color);">&bull;</span>
+              <span style="color: var(--global-text-color-light);"><i class="fa-solid fa-clock fa-sm"></i> {{ read_time }} min</span>
 
               {% if post.external_source %}
-                <span style="color: #d1d5db;">&bull;</span>
-                <span style="color: #9ca3af;">{{ post.external_source }}</span>
+                <span style="color: var(--global-divider-color);">&bull;</span>
+                <span style="color: var(--global-text-color-light);">{{ post.external_source }}</span>
               {% endif %}
 
               {% if tags != "" %}
-                <span style="color: #d1d5db;">&bull;</span>
+                <span style="color: var(--global-divider-color);">&bull;</span>
                 {% for tag in post.tags %}
                   <a href="{{ tag | slugify | prepend: '/blog/tag/' | relative_url }}">
                     <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
                   {% unless forloop.last %}
-                    <span style="color: #d1d5db;">•</span>
+                    <span style="color: var(--global-divider-color);">•</span>
                   {% endunless %}
                 {% endfor %}
               {% endif %}
 
               {% if categories != "" %}
-                <span style="color: #d1d5db;">&bull;</span>
+                <span style="color: var(--global-divider-color);">&bull;</span>
                 {% for category in post.categories %}
                   <a href="{{ category | slugify | prepend: '/blog/category/' | relative_url }}">
                     <i class="fa-solid fa-tag fa-sm"></i> {{ category }}</a>
                   {% unless forloop.last %}
-                    <span style="color: #d1d5db;">•</span>
+                    <span style="color: var(--global-divider-color);">•</span>
                   {% endunless %}
                 {% endfor %}
               {% endif %}
