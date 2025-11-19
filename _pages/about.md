@@ -39,7 +39,7 @@ latest_posts:
   .about-intro p {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #444;
+    color: var(--global-text-color);
     margin-bottom: 1rem;
   }
 
@@ -52,10 +52,11 @@ latest_posts:
 
   .skill-card {
     padding: 2rem;
-    background: linear-gradient(135deg, #f5f7fa 0%, #f9fafb 100%);
+    background: var(--global-card-bg-color);
     border-radius: 12px;
-    border-left: 4px solid #2563eb;
+    border-left: 4px solid var(--global-theme-color);
     transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   }
 
   .skill-card:hover {
@@ -66,7 +67,7 @@ latest_posts:
   .skill-card h3 {
     font-size: 1.1rem;
     font-weight: 600;
-    color: #1f2937;
+    color: var(--global-text-color);
     margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
@@ -74,7 +75,7 @@ latest_posts:
   }
 
   .skill-card p {
-    color: #6b7280;
+    color: var(--global-text-color-light);
     font-size: 0.95rem;
     line-height: 1.6;
     margin: 0;
@@ -85,23 +86,24 @@ latest_posts:
   }
 
   .cta-section {
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-    color: white;
+    background: var(--global-card-bg-color);
+    color: var(--global-text-color);
     padding: 3rem 2rem;
     border-radius: 12px;
     margin-top: 3rem;
     text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   }
 
   .cta-section a {
-    color: #3b82f6;
+    color: var(--global-theme-color);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
   }
 
   .cta-section a:hover {
-    color: #60a5fa;
+    color: var(--global-hover-color);
   }
 
   @media (max-width: 768px) {
