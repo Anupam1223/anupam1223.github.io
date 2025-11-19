@@ -55,6 +55,17 @@ ninja.data = [{
             window.location.href = "/blog/2025/instructions-for-setting-up-twilio/";
           
         },
+      },{id: "post-deep-learning-based-particle-identification-in-the-glue-x-experiment",
+        
+          title: "Deep Learning-Based Particle Identification In The Glue-X Experiment",
+        
+        description: "",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/particle-identification/";
+          
+        },
       },{id: "post-a-distill-style-blog-post",
         
           title: "a distill-style blog post",
