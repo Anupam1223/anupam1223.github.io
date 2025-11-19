@@ -59,7 +59,7 @@ ninja.data = [{
         
           title: "Deep Learning-Based Particle Identification In The Glue-X Experiment",
         
-        description: "",
+        description: "A comprehensive study on applying deep learning and hyperparameter optimization for particle classification in nuclear physics",
         section: "Posts",
         handler: () => {
           
