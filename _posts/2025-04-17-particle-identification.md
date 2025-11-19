@@ -204,7 +204,7 @@ Lower cross-entropy indicates better predictions. During optimization, gradients
 
 ### Model Monitoring
 
-During training, gradients for each layer $i$ ($\nabla W_i$) are continuously monitored for:
+During training, gradients for each layer $$i$$ ($$\nabla W_i$$) are continuously monitored for:
 
 - **Vanishing Gradients**: Values very close to 0 prevent lower layers from learning effectively
 - **Exploding Gradients**: Excessively large gradients destabilize training
