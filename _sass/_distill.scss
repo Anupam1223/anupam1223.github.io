@@ -28,8 +28,12 @@ d-article {
   h5,
   h6,
   li,
-  table,
-  .katex {
+  table {
+    color: var(--global-text-color) !important;
+  }
+
+  .katex,
+  .katex-display {
     color: var(--global-text-color) !important;
   }
   h1,
