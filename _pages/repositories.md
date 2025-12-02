@@ -2,6 +2,7 @@
 layout: page
 permalink: /repositories/
 title: Repositories
+description: "A collection of my open-source projects and repositories on GitHub."
 nav: true
 nav_order: 4
 ---
@@ -44,3 +45,5 @@ nav_order: 4
   {% endfor %}
 </div>
 {% endif %}
+
+<script src="{{ '/assets/js/repositories.js' | relative_url }}"></script>
