@@ -647,6 +647,83 @@ footer.sticky-bottom {
       }
     }
   }
+
+  .repo-user-card {
+    flex: 1 1 280px;
+    background-color: var(--global-card-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover,
+    &:focus-within {
+      border-color: var(--global-theme-color);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .repo-user-card__header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .repo-user-card__avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--global-divider-color);
+    }
+
+    .repo-user-card__info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .repo-user-card__name {
+      font-weight: 600;
+      color: var(--global-text-color);
+      text-decoration: none;
+      font-size: 1.1rem;
+
+      &:hover {
+        color: var(--global-theme-color);
+      }
+    }
+
+    .repo-user-card__bio {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--global-text-color-light);
+      line-height: 1.4;
+    }
+
+    .repo-user-card__stats {
+      display: flex;
+      gap: 1rem;
+      margin-top: auto;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--global-divider-color);
+      color: var(--global-text-color-light);
+      font-size: 0.85rem;
+
+      .repo-user-card__stat {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+
+        svg {
+          fill: currentColor;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
 }
 
 // Blog

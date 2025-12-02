@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Fetch Repository Data
   const repoCards = document.querySelectorAll(".repo-card");
 
   repoCards.forEach((card) => {
@@ -48,6 +49,56 @@ document.addEventListener("DOMContentLoaded", function () {
         const descriptionEl = card.querySelector(".repo-card__description");
         if (descriptionEl) {
           descriptionEl.textContent = "Failed to load repository data.";
+        }
+      });
+  });
+
+  // Fetch User Data
+  const userCards = document.querySelectorAll(".repo-user-card");
+
+  userCards.forEach((card) => {
+    const username = card.getAttribute("data-username");
+    if (!username) return;
+
+    const url = `https://api.github.com/users/${username}`;
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Update avatar
+        const avatarEl = card.querySelector(".repo-user-card__avatar");
+        if (avatarEl && data.avatar_url) {
+          avatarEl.src = data.avatar_url;
+        }
+
+        // Update bio
+        const bioEl = card.querySelector(".repo-user-card__bio");
+        if (bioEl) {
+          bioEl.textContent = data.bio || "GitHub User";
+        }
+
+        // Update followers
+        const followersEl = card.querySelector(".repo-user-card__followers");
+        if (followersEl) {
+          followersEl.textContent = data.followers;
+        }
+
+        // Update public repos count
+        const reposEl = card.querySelector(".repo-user-card__repos");
+        if (reposEl) {
+          reposEl.textContent = data.public_repos;
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+        const bioEl = card.querySelector(".repo-user-card__bio");
+        if (bioEl) {
+          bioEl.textContent = "Failed to load user data.";
         }
       });
   });
