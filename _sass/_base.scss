@@ -538,9 +538,114 @@ footer.sticky-bottom {
 
 // Repositories
 
-@media (min-width: 768px) {
-  .repo {
-    max-width: 50%;
+.repositories {
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  .repo-card {
+    flex: 1 1 280px;
+    background-color: var(--global-card-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover,
+    &:focus-within {
+      border-color: var(--global-theme-color);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .repo-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      .repo-card__name {
+        font-weight: 600;
+        color: var(--global-text-color);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+
+        &:hover {
+          color: var(--global-theme-color);
+        }
+
+        .repo-card__icon {
+          width: 20px;
+          height: 20px;
+          fill: currentColor;
+        }
+
+        .repo-card__owner {
+          font-weight: 500;
+          color: var(--global-text-color-light);
+        }
+      }
+
+      .repo-card__language {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+        color: var(--global-text-color-light);
+
+        .repo-card__language-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: var(--global-theme-color);
+          display: inline-block;
+        }
+      }
+    }
+
+    .repo-card__description {
+      margin: 0.75rem 0 1rem;
+      color: var(--global-text-color);
+      font-size: 0.95rem;
+      line-height: 1.4;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .repo-card__meta {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      color: var(--global-text-color-light);
+      font-size: 0.85rem;
+
+      .repo-card__stat {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        svg {
+          width: 14px;
+          height: 14px;
+          fill: currentColor;
+        }
+      }
+
+      .repo-card__updated {
+        margin-left: auto;
+        font-size: 0.8rem;
+        white-space: nowrap;
+      }
+    }
   }
 }
 

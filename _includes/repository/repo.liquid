@@ -1,47 +1,66 @@
-{% assign repo_url = include.repository | split: '/' %}
-{% if site.data.repositories.github_users contains repo_url.first %}
-  {% assign show_owner = false %}
-{% else %}
-  {% assign show_owner = true %}
+{% assign repo_entry = include.repository %}
+{% assign repo_slug = repo_entry.slug | default: repo_entry %}
+{% assign repo_parts = repo_slug | split: '/' %}
+{% assign repo_owner = repo_entry.owner | default: repo_parts[0] %}
+{% assign repo_name = repo_entry.title | default: repo_entry.name | default: repo_parts[1] %}
+
+{% if site.github and site.github.public_repositories %}
+  {% assign repo_data = site.github.public_repositories | where: 'full_name', repo_slug | first %}
 {% endif %}
 
-{% assign lang = site.lang | split: '-' | first %}
+{% assign repo_description = repo_entry.description | default: repo_data.description | default: '' %}
+{% assign repo_language = repo_entry.language | default: repo_data.language | default: '' %}
+{% assign repo_stars = repo_entry.stars | default: repo_data.stargazers_count | default: 0 %}
+{% assign repo_forks = repo_entry.forks | default: repo_data.forks_count | default: 0 %}
+{% assign repo_homepage = repo_entry.homepage | default: repo_data.homepage | default: '' %}
+{% assign repo_updated = repo_entry.updated | default: repo_data.pushed_at | default: '' %}
 
-{% case lang %}
-  {% when 'pt' %}
-    {% assign lang = site.lang %}
-
-  {% when 'zh' %}
-    {% assign lang_last = site.lang | split: '-' | last %}
-    {% case lang_last %}
-      {% when 'cn', 'sg', 'my', 'hans' %}
-        {% assign lang = 'cn' %}
-      {% when 'tw', 'hk', 'mo', 'hant' %}
-        {% assign lang = 'zh-tw' %}
-    {% endcase %}
-
-    {% comment %} Add a new language using when... if needed {% endcomment %}
-    {% comment %} If you still encounter language-display issues, check the available locale codes in github-readme-stats (different from ISO-639 standard used in your website) {% endcomment %}
-    {% comment %} https://github.com/anuraghazra/github-readme-stats?tab=readme-ov-file#available-locales {% endcomment %}
-{% endcase %}
-
-{% if site.data.repositories.repo_description_lines_max %}
-  {% assign max_lines = site.data.repositories.repo_description_lines_max %}
-{% else %}
-  {% assign max_lines = 2 %}
+{% if repo_description == '' %}
+  {% assign repo_description = 'No description provided yet.' %}
 {% endif %}
 
-<div class="repo p-2 text-center">
-  <a href="https://github.com/{{ include.repository }}">
-    <img
-      class="only-light w-100"
-      alt="{{ include.repository }}"
-      src="https://github-readme-stats.vercel.app/api/pin/?username={{ repo_url[0] }}&repo={{ repo_url[1] }}&theme={{ site.repo_theme_light }}&locale={{ lang }}&show_owner={{ show_owner }}&description_lines_count={{ max_lines }}"
-    >
-    <img
-      class="only-dark w-100"
-      alt="{{ include.repository }}"
-      src="https://github-readme-stats.vercel.app/api/pin/?username={{ repo_url[0] }}&repo={{ repo_url[1] }}&theme={{ site.repo_theme_dark }}&locale={{ lang }}&show_owner={{ show_owner }}&description_lines_count={{ max_lines }}"
-    >
-  </a>
-</div>
+{% assign repo_url = repo_homepage %}
+{% if repo_url == '' %}
+  {% assign repo_url = 'https://github.com/' | append: repo_slug %}
+{% endif %}
+
+<article class="repo-card" aria-labelledby="repo-{{ repo_owner }}-{{ repo_name }}">
+  <header class="repo-card__header">
+    <a id="repo-{{ repo_owner }}-{{ repo_name }}" class="repo-card__name" href="{{ repo_url }}">
+      <svg class="repo-card__icon" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h7A2.5 2.5 0 0 1 14 2.5v11a.5.5 0 0 1-.777.416L8 10.101l-5.223 3.815A.5.5 0 0 1 2 13.5z" />
+      </svg>
+      <span><span class="repo-card__owner">{{ repo_owner }}</span>/<strong>{{ repo_name }}</strong></span>
+    </a>
+    {% if repo_language != '' %}
+      <span class="repo-card__language">
+        <span class="repo-card__language-dot" aria-hidden="true"></span>
+        {{ repo_language }}
+      </span>
+    {% endif %}
+  </header>
+
+  <p class="repo-card__description">
+    {{ repo_description }}
+  </p>
+
+  <footer class="repo-card__meta">
+    <span class="repo-card__stat" aria-label="Stars">
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M8 .25l1.898 5.842h6.102l-4.95 3.598 1.898 5.842L8 11.934l-4.948 3.598 1.898-5.842L0 6.092h6.102z" />
+      </svg>
+      {{ repo_stars }}
+    </span>
+    <span class="repo-card__stat" aria-label="Forks">
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M5 3.25a2.25 2.25 0 1 1-3 2.122v5.256a2.25 2.25 0 1 1 1.5 0v-3.72l4-2.285v-.531A2.25 2.25 0 1 1 9.5 4.5v.53l4 2.286v3.256a2.25 2.25 0 1 1-1.5 0V8.372l-4-2.285v-.715A2.25 2.25 0 0 1 7 3.25" />
+      </svg>
+      {{ repo_forks }}
+    </span>
+    {% if repo_updated != '' %}
+      <span class="repo-card__updated">
+        Updated {{ repo_updated | date: '%b %d, %Y' }}
+      </span>
+    {% endif %}
+  </footer>
+</article>

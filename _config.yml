@@ -202,6 +202,7 @@ plugins:
   - jekyll-email-protect
   - jekyll-feed
   - jekyll-get-json
+  - jekyll-github-metadata
   - jekyll-imagemagick
   - jekyll-jupyter-notebook
   - jekyll-link-attributes
