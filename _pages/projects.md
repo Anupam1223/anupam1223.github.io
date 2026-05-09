@@ -2,12 +2,16 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: A growing collection of your cool projects.
-nav: false
+description: Ongoing projects and expertise including an interactive normalizing flow slider.
+nav: true
 nav_order: 3
 display_categories: [work, fun]
 horizontal: false
 ---
+
+<div style="width: 100%; border: 1px solid var(--global-divider-color); border-radius: 8px; margin-bottom: 2rem; overflow: hidden; background: white;">
+  <iframe src="{{ '/assets/slider-app/index.html' | relative_url }}" width="100%" height="800px" frameborder="0" style="border: none; display: block;"></iframe>
+</div>
 
 <!-- pages/projects.md -->
 <div class="projects">

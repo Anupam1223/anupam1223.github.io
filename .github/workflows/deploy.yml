@@ -88,6 +88,14 @@ jobs:
           valueFile: "_config.yml"
           propertyPath: "giscus.repo"
           value: ${{ github.repository }}
+      - name: Install and Build Slider ⚛️
+        run: |
+          cd _projects/normalizing_flow_react_slider
+          npm install
+          npm run build
+          cd ../..
+          mkdir -p assets/slider-app
+          cp -r _projects/normalizing_flow_react_slider/dist/* assets/slider-app/
       - name: Install and Build 🔧
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
