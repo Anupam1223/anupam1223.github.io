@@ -64,7 +64,7 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "news-visiting-researcher-gluex-pid-project-gluex-collaboration-halld-project-url-invited-position-may-1-21-2024",
+            },},{id: "news-visiting-researcher-gluex-pid-project-gluex-collaboration-halld-project-url-invited-position-may-1-21-2024-jefferson-lab-virginia",
           title: 'Visiting Researcher - GlueX PID Project (GlueX Collaboration / HallD). Project URL. Invited...',
           description: "",
           section: "News",},{id: "news-invited-speaker-best-practice-for-ai-in-nuclear-physics-applications-cebaf-center-documentation-url-invited-position-feb-18-19-2025-jefferson-lab-virginia",
