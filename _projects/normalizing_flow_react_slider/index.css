@@ -1,0 +1,17 @@
+/* Basic CSS for centering and fonts, plus Tailwind for utility classes */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, 'sans-serif';
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
