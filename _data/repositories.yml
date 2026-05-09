@@ -4,11 +4,32 @@ github_users:
 repo_description_lines_max: 2
 
 github_repos:
-  # Add your own repositories here to pin them on the page
+  - Anupam1223/anupam1223.github.io
+  - Anupam1223/Authentication
+  - Anupam1223/codolytics
+  - Anupam1223/Data_Mart_Design_for_Police_Crime_Reporting_System
+  - Anupam1223/demo_GUI_C-
+  - Anupam1223/Dependency
+  - Anupam1223/django-frontend
+  - Anupam1223/DynamicUserCrud
+  - Anupam1223/ecomm_demo
+  - Anupam1223/emperical_research_on_software_architectures
+  - Anupam1223/Foodwagon
+  - Anupam1223/formsUserCRUD
+  - Anupam1223/Genesis
+  - Anupam1223/GraphqlBasics
+  - Anupam1223/MLOPs-Certificates
   - Anupam1223/ml_fastapi
   - Anupam1223/ml_pipeline
-  - Anupam1223/Foodwagon
-  - Anupam1223/Codolytics
-  - Anupam1223/mps-trade-analysis
   - Anupam1223/mps-mnist-classifier
-  - Anupam1223/demo_GUI_c-
+  - Anupam1223/mps-trade-analysis
+  - Anupam1223/mps_anamoly_tep
+  - Anupam1223/normalizing_flow_react_slider
+  - Anupam1223/project_admin_user
+  - Anupam1223/pytorch_learn
+  - Anupam1223/SimpleLogin
+  - Anupam1223/SQL
+  - Anupam1223/SqlSecurity
+  - Anupam1223/SqlSecurityWithRouter
+  - Anupam1223/StaticUserCrud-
+  - Anupam1223/twilio_practise
