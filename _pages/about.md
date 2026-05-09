@@ -129,32 +129,28 @@ I'm a software developer and ML researcher building end-to-end systems — from 
 <div class="skills-grid">
   <div class="skill-card">
     <h3><span class="skill-icon">🔬</span> Physics-Informed ML & Anomaly Detection</h3>
-    <p>Designed real-time anomaly detection systems combining Vector Autoregression (VAR) with tensor train fingerprinting — validated on physical fluid flow testbeds achieving <strong>0.5 ms detection</strong> and <strong>1–10 ms forecasting</strong>. Built stochastic MPC architectures using Functional PCA and Normalizing Flows for multi-variable distribution prediction.</p>
+    <p>real-time anomaly detection systems combining Vector Autoregression (VAR) with tensor train fingerprinting, Built stochastic MPC architectures using Functional PCA and Normalizing Flows for multi-variable distribution prediction.</p>
   </div>
 
   <div class="skill-card">
     <h3><span class="skill-icon">🧠</span> Deep Learning & ML Pipelines</h3>
-    <p>Built PyTorch-based ML pipelines with Optuna for hyperparameter optimization on GlueX detector data at Jefferson Lab — improving particle-ID accuracy by <strong>25%</strong> and reducing training cycles by <strong>40%</strong>. Modular DNN frameworks with gradient monitoring, schedulers, and diagnostics.</p>
+    <p>Built PyTorch-based ML pipelines with Optuna for hyperparameter optimization on GlueX detector data at Jefferson Lab.</p>
   </div>
 
   <div class="skill-card">
     <h3><span class="skill-icon">🐳</span> MLOps, Streaming & DevOps</h3>
-    <p>Containerized full anomaly-detection pipelines (Kafka, C++ forecaster, Python analytics) using Docker Compose — cutting onboarding time by <strong>50%</strong>. Deployed Prometheus + InfluxDB monitoring with Grafana dashboards, reducing anomaly triage from hours to minutes.</p>
+    <p>Containerized full anomaly-detection pipelines (Kafka, C++ forecaster, Python analytics) using Docker Compose Deployed Prometheus + InfluxDB monitoring with Grafana dashboards.</p>
   </div>
 
   <div class="skill-card">
     <h3><span class="skill-icon">📡</span> Embedded Systems & Edge Computing</h3>
-    <p>Built embedded Linux solutions on the Octavo OSD32MP1-BRK platform with I2C sensors, Cat-M1/NB-IoT modules, and STM32 ARM Cortex-M4 firmware. Programmed TGS 8410 methane sensors with precise heating cycles and calibrated ADC sampling using STM32CubeIDE.</p>
+    <p>Built embedded Linux solutions on the Octavo OSD32MP1-BRK platform with I2C sensors, Cat-M1/NB-IoT modules, and STM32 ARM Cortex-M4 firmware.</p>
   </div>
 
   <div class="skill-card">
     <h3><span class="skill-icon">⚡</span> Backend Engineering & APIs</h3>
     <p>Delivered production backend systems at Codavatar — secure authorization with OSO + Python, Twilio-powered APIs, GraphQL + FastAPI + Pandas developer analytics, and Django REST Framework APIs for enterprise clients. Full-stack experience across PostgreSQL, Docker, and async services.</p>
   </div>
-
-  <div class="skill-card">
-    <h3><span class="skill-icon">⚛️</span> C++ & HPC Integration</h3>
-    <p>Deployed particle identification models in C++ within HallD nuclear physics software at Jefferson Lab, enabling real-time data analysis. Custom statistical and physics-inspired models for edge-optimized computation.</p>
   </div>
 </div>
 
