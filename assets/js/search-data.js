@@ -18,7 +18,7 @@ ninja.data = [{
           },
         },{id: "nav-projects",
           title: "Projects",
-          description: "Ongoing projects and expertise including an interactive normalizing flow slider.",
+          description: "Ongoing projects and expertise — click any project to explore it interactively.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/projects/";
