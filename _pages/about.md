@@ -120,7 +120,7 @@ latest_posts:
 
 ## About Me
 
-I'm a systems-minded engineer who builds end-to-end solutions—from embedded devices to production ML and backend services. Beyond machine learning, I work across C++, Python, databases, and embedded platforms to turn ideas into reliable, deployable systems.
+I'm a software developer and ML researcher building end-to-end systems — from real-time anomaly detection pipelines and physics-informed ML models to embedded Linux platforms and full-stack web services. Currently at the **Center for Midstream Management and Science (CMMS)**, I develop production-grade ML systems that operate at sub-millisecond speeds on industrial data streams, combining rigorous physics intuition with modern deep learning. My background spans nuclear physics research at Jefferson Lab (GlueX), backend engineering at a software startup in Kathmandu, and embedded systems for IoT sensor platforms. I care deeply about reproducibility, clean interfaces, and turning research-grade ideas into reliable deployable systems.
 
 ---
 
@@ -128,23 +128,33 @@ I'm a systems-minded engineer who builds end-to-end solutions—from embedded de
 
 <div class="skills-grid">
   <div class="skill-card">
-    <h3><span class="skill-icon">⚙️</span> C++ & Physics-Inspired Models</h3>
-    <p>Custom statistical models with quantum-influenced techniques for precise computation and edge optimization</p>
+    <h3><span class="skill-icon">🔬</span> Physics-Informed ML & Anomaly Detection</h3>
+    <p>Designed real-time anomaly detection systems combining Vector Autoregression (VAR) with tensor train fingerprinting — validated on physical fluid flow testbeds achieving <strong>0.5 ms detection</strong> and <strong>1–10 ms forecasting</strong>. Built stochastic MPC architectures using Functional PCA and Normalizing Flows for multi-variable distribution prediction.</p>
   </div>
 
   <div class="skill-card">
-    <h3><span class="skill-icon">🧠</span> Python ML & Data Pipelines</h3>
-    <p>Particle-identification pipelines with PyTorch and scikit-learn at Thomas Jefferson National Accelerator Facility</p>
+    <h3><span class="skill-icon">🧠</span> Deep Learning & ML Pipelines</h3>
+    <p>Built PyTorch-based ML pipelines with Optuna for hyperparameter optimization on GlueX detector data at Jefferson Lab — improving particle-ID accuracy by <strong>25%</strong> and reducing training cycles by <strong>40%</strong>. Modular DNN frameworks with gradient monitoring, schedulers, and diagnostics.</p>
   </div>
 
   <div class="skill-card">
-    <h3><span class="skill-icon">⚡</span> Backend & Databases</h3>
-    <p>FastAPI and Django services; data modeling and performance tuning across PostgreSQL, EdgeDB, and MySQL</p>
+    <h3><span class="skill-icon">🐳</span> MLOps, Streaming & DevOps</h3>
+    <p>Containerized full anomaly-detection pipelines (Kafka, C++ forecaster, Python analytics) using Docker Compose — cutting onboarding time by <strong>50%</strong>. Deployed Prometheus + InfluxDB monitoring with Grafana dashboards, reducing anomaly triage from hours to minutes.</p>
   </div>
 
   <div class="skill-card">
-    <h3><span class="skill-icon">📱</span> Edge & Embedded Systems</h3>
-    <p>System-in-Package (SiP) sensor integration on ARM Cortex-M4, embedded Linux, and on-device optimization</p>
+    <h3><span class="skill-icon">📡</span> Embedded Systems & Edge Computing</h3>
+    <p>Built embedded Linux solutions on the Octavo OSD32MP1-BRK platform with I2C sensors, Cat-M1/NB-IoT modules, and STM32 ARM Cortex-M4 firmware. Programmed TGS 8410 methane sensors with precise heating cycles and calibrated ADC sampling using STM32CubeIDE.</p>
+  </div>
+
+  <div class="skill-card">
+    <h3><span class="skill-icon">⚡</span> Backend Engineering & APIs</h3>
+    <p>Delivered production backend systems at Codavatar — secure authorization with OSO + Python, Twilio-powered APIs, GraphQL + FastAPI + Pandas developer analytics, and Django REST Framework APIs for enterprise clients. Full-stack experience across PostgreSQL, Docker, and async services.</p>
+  </div>
+
+  <div class="skill-card">
+    <h3><span class="skill-icon">⚛️</span> C++ & HPC Integration</h3>
+    <p>Deployed particle identification models in C++ within HallD nuclear physics software at Jefferson Lab, enabling real-time data analysis. Custom statistical and physics-inspired models for edge-optimized computation.</p>
   </div>
 </div>
 
@@ -152,9 +162,16 @@ I'm a systems-minded engineer who builds end-to-end solutions—from embedded de
 
 ## Experience
 
-At CMMS, I split my time between software engineering and research administration, including patent development around a SiP-based multi-sensor platform. I care deeply about reproducibility, clear interfaces, and making research-grade ideas production-ready.
+**Software Developer — CMMS, Beaumont TX** *(Jun 2025 – Present)*  
+Building physics-informed ML systems for real-time industrial analytics, embedded IoT platforms, and containerized streaming pipelines.
+
+**Graduate Research Assistant — Lamar University × Jefferson Lab** *(May 2024 – May 2025)*  
+ML-based particle identification for the GlueX Collaboration at HallD, Virginia. PyTorch DNN pipelines deployed in C++ for real-time nuclear physics analysis.
+
+**Software Engineer — Codavatar, Kathmandu** *(Nov 2021 – Jun 2023)*  
+Full-stack and backend engineer across multiple products — Dialaxy (comms platform) and Entegra (enterprise APIs) — using Django, FastAPI, GraphQL, and Docker.
 
 <div class="cta-section">
   <p>If you'd like to collaborate or chat about projects, feel free to reach out via <a href="mailto:{{ site.data.socials.email }}">email</a>.</p>
-  <p style="margin-top: 1rem;">Please see my <a href="{{ '/cv/' | relative_url }}">resume</a> for more details about my background, experience, and selected projects.</p>
+  <p style="margin-top: 1rem;">Please see my <a href="{{ '/cv/' | relative_url }}">resume</a> for full details on my background and selected projects.</p>
 </div>
