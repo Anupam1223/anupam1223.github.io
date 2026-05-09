@@ -100,6 +100,9 @@ jobs:
           npm install
           npm run build
           cd ../../..
+      - name: Clean up node_modules 🧹
+        run: |
+          find _projects -name "node_modules" -type d -prune -exec rm -rf '{}' +
       - name: Install and Build 🔧
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
