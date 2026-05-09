@@ -64,11 +64,20 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather/";
-            },},{id: "news-met-with-the-octavo-team-and-their-cto-to-explore-integrating-my-edge-and-software-sdks-we-discussed-a-joint-path-for-future-collaboration-and-a-technical-roadmap-for-sdk-compatibility-and-deployment",
+            },},{id: "news-visiting-researcher-gluex-pid-project-gluex-collaboration-halld-project-url-invited-position-may-1-21-2024",
+          title: 'Visiting Researcher - GlueX PID Project (GlueX Collaboration / HallD). Project URL. Invited...',
+          description: "",
+          section: "News",},{id: "news-invited-speaker-best-practice-for-ai-in-nuclear-physics-applications-cebaf-center-documentation-url-invited-position-feb-18-19-2025",
+          title: 'Invited Speaker - “Best practice for AI in nuclear physics applications” (CEBAF Center)....',
+          description: "",
+          section: "News",},{id: "news-met-with-the-octavo-team-and-their-cto-to-explore-integrating-my-edge-and-software-sdks-we-discussed-a-joint-path-for-future-collaboration-and-a-technical-roadmap-for-sdk-compatibility-and-deployment",
           title: 'Met with the Octavo team and their CTO to explore integrating my edge...',
           description: "",
           section: "News",},{id: "news-attended-the-partnerships-between-academia-and-the-midstream-industry-symposium-oct-15-16-2025-and-presented-physics-inspired-methods-for-real-time-industrial-analytics-at-the-edge",
           title: 'Attended the Partnerships Between Academia and the Midstream Industry Symposium (Oct 15–16, 2025)...',
+          description: "",
+          section: "News",},{id: "news-invited-exhibitor-live-anomaly-detection-demonstration-center-for-data-analytics-and-cybersecurity-invited-position",
+          title: 'Invited Exhibitor - Live Anomaly Detection Demonstration (Center for Data Analytics and Cybersecurity)....',
           description: "",
           section: "News",},{id: "projects-project-1",
           title: 'project 1',
@@ -115,6 +124,16 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project/";
+            },},{id: "projects-explore-preprocessing-checkpoint",
+          title: 'Explore_preprocessing Checkpoint',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/Genesis/notebooks/.ipynb_checkpoints/explore_preprocessing-checkpoint/";
+            },},{id: "projects-explore-preprocessing",
+          title: 'Explore_preprocessing',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/Genesis/notebooks/explore_preprocessing/";
             },},{
         id: 'social-email',
         title: 'email',
