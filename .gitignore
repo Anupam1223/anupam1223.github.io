@@ -1,6 +1,6 @@
 _site
-.bundle
-.sass-cache
+.bunnode_modules/
+vendor.sass-cache
 .jekyll-cache
 .jekyll-metadata
 .DS_store
@@ -11,4 +11,3 @@ assets/libs/
 node_modules/
 vendor
 .idea
-assets/slider-app/
