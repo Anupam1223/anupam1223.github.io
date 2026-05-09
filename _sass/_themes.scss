@@ -133,6 +133,17 @@ html[data-theme="dark"] {
     fill: var(--global-text-color) !important;
     stroke: var(--global-text-color) !important;
   }
+
+  // Fix MathJax formula visibility in dark mode
+  mjx-container,
+  mjx-container * {
+    color: var(--global-text-color) !important;
+  }
+
+  mjx-container svg {
+    fill: var(--global-text-color) !important;
+    stroke: var(--global-text-color) !important;
+  }
 }
 
 html[data-theme-setting="dark"] {

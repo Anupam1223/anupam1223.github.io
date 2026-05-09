@@ -26,7 +26,7 @@ nav_order: 3
   <div class="project-card">
     <div class="project-card__badge">Interactive</div>
     <div class="project-card__icon">🔥</div>
-    <h3 class="project-card__title">PyTorch Theory</h3>
+    <h3 class="project-card__title">PyTorch</h3>
     <p class="project-card__desc">A slide-by-slide interactive walkthrough of PyTorch fundamentals — tensors, autograd, neural network modules, training loops, and more.</p>
     <div class="project-card__tags">
       <span class="project-tag">React</span>
@@ -39,12 +39,15 @@ nav_order: 3
   <div class="project-card">
     <div class="project-card__badge">ML Pipeline</div>
     <div class="project-card__icon">⚙️</div>
-    <h3 class="project-card__title">Genesis</h3>
+    <h3 class="project-card__title">Genesis ML Pipeline</h3>
     <p class="project-card__desc">A full ML pipeline for anomaly detection on industrial SCADA data. Includes normalizing flow models, W&B experiment tracking, data preprocessing, and edge export.</p>
     <div class="project-card__tags">
       <span class="project-tag">Python</span>
       <span class="project-tag">SCADA</span>
-      <span class="project-tag">Anomaly Detection</span>
+      <span class="project-tag">stochastic model predictive control</span>
+      <span class="project-tag">pandas / numpy</span>
+      <span class="project-tag">scikit-learn</span>
+      <span class="project-tag">Normalizing Flows (Neural Spline)</span>
     </div>
     <a class="project-card__btn" href="https://github.com/Anupam1223/Genesis" target="_blank" rel="noopener noreferrer">View on GitHub</a>
   </div>
@@ -276,4 +279,3 @@ function closeProjectModal(event) {
   </div>
   {% endif %}
 {% endif %}
-</div>
