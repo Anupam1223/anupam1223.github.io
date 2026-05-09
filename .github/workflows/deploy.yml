@@ -102,7 +102,16 @@ jobs:
           cd ../../..
       - name: Clean up node_modules 🧹
         run: |
-          find _projects -name "node_modules" -type d -prune -exec rm -rf '{}' +
+          rm -rf _projects/pytorch_learn/theory/node_modules
+          rm -rf _projects/normalizing_flow_react_slider/node_modules
+          rm -rf _projects/Genesis/documentation/node_modules
+      - name: Backup Compiled Sliders & Delete Sources
+        run: |
+          mkdir -p /tmp/slider-app /tmp/pytorch-app
+          cp -r _projects/normalizing_flow_react_slider/dist/* /tmp/slider-app/ || true
+          cp -r _projects/pytorch_learn/theory/build/* /tmp/pytorch-app/ || true
+          rm -rf _projects/normalizing_flow_react_slider/
+          rm -rf _projects/pytorch_learn/theory/
       - name: Install and Build 🔧
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
@@ -110,9 +119,9 @@ jobs:
           export JEKYLL_ENV=production
           bundle exec jekyll build
           mkdir -p _site/assets/slider-app
-          cp -r _projects/normalizing_flow_react_slider/dist/* _site/assets/slider-app/
+          cp -r /tmp/slider-app/* _site/assets/slider-app/ || true
           mkdir -p _site/assets/pytorch-app
-          cp -r _projects/pytorch_learn/theory/build/* _site/assets/pytorch-app/
+          cp -r /tmp/pytorch-app/* _site/assets/pytorch-app/ || true
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss
