@@ -119,6 +119,20 @@ html[data-theme="dark"] {
   .only-dark {
     display: block;
   }
+
+  // Fix KaTeX math formula visibility in dark mode
+  .katex,
+  .katex-display,
+  .katex-html,
+  .katex .base,
+  .katex .strut {
+    color: var(--global-text-color) !important;
+  }
+
+  .katex svg {
+    fill: var(--global-text-color) !important;
+    stroke: var(--global-text-color) !important;
+  }
 }
 
 html[data-theme-setting="dark"] {
