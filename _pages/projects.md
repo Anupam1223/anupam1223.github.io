@@ -10,7 +10,19 @@ horizontal: false
 ---
 
 <div style="width: 100%; border: 1px solid var(--global-divider-color); border-radius: 8px; margin-bottom: 2rem; overflow: hidden; background: white;">
+  <div style="padding: 10px; background: var(--global-bg-color); border-bottom: 1px solid var(--global-divider-color); font-weight: bold;">Normalizing Flow Interactive Slider</div>
   <iframe src="{{ '/assets/slider-app/index.html' | relative_url }}" width="100%" height="800px" frameborder="0" style="border: none; display: block;"></iframe>
+</div>
+
+<div style="width: 100%; border: 1px solid var(--global-divider-color); border-radius: 8px; margin-bottom: 2rem; overflow: hidden; background: white;">
+  <div style="padding: 10px; background: var(--global-bg-color); border-bottom: 1px solid var(--global-divider-color); font-weight: bold;">PyTorch Theory Interactive Slider</div>
+  <iframe src="{{ '/assets/pytorch-app/index.html' | relative_url }}" width="100%" height="800px" frameborder="0" style="border: none; display: block;"></iframe>
+</div>
+
+<div style="width: 100%; border: 1px solid var(--global-divider-color); border-radius: 8px; margin-bottom: 2rem; padding: 1.5rem; background: var(--global-card-bg-color);">
+  <h3>Genesis ML Pipeline</h3>
+  <p>A comprehensive ML pipeline project requiring dedicated hardware to run fully. Includes Jupyter notebooks, W&B integration, and complete lifecycle tools.</p>
+  <a href="https://github.com/Anupam1223/Genesis" class="btn btn-primary" target="_blank" rel="noopener noreferrer">View Genesis on GitHub</a>
 </div>
 
 <!-- pages/projects.md -->

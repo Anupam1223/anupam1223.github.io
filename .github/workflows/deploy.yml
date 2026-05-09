@@ -94,14 +94,22 @@ jobs:
           npm install
           npm run build
           cd ../..
-          mkdir -p assets/slider-app
-          cp -r _projects/normalizing_flow_react_slider/dist/* assets/slider-app/
+      - name: Install and Build PyTorch Slider ⚛️
+        run: |
+          cd _projects/pytorch_learn/theory
+          npm install
+          npm run build
+          cd ../../..
       - name: Install and Build 🔧
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
           pip3 install --upgrade nbconvert
           export JEKYLL_ENV=production
           bundle exec jekyll build
+          mkdir -p _site/assets/slider-app
+          cp -r _projects/normalizing_flow_react_slider/dist/* _site/assets/slider-app/
+          mkdir -p _site/assets/pytorch-app
+          cp -r _projects/pytorch_learn/theory/build/* _site/assets/pytorch-app/
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss
