@@ -17,6 +17,7 @@ chart:
   vega_lite: false
 tikzjax: false
 typograms: false
+external_source: "https://libproxy.lamar.edu/login?url=https://www.proquest.com/dissertations-theses/deep-learning-based-particle-identification-gluex/docview/3206450220/se-2?accountid=7043"
 
 authors:
   - name: Anupam Siwakoti
@@ -65,6 +66,14 @@ _styles: >
     font-size: 16px;
   }
 ---
+
+<div style="background: var(--global-card-bg-color); border: 1px solid var(--global-divider-color); border-left: 4px solid var(--global-theme-color); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+  <div>
+    <strong>📄 Published Thesis</strong><br>
+    <span style="font-size: 0.9rem; color: var(--global-text-color-light);">ProQuest Dissertations & Theses · April 17, 2025 · Lamar University</span>
+  </div>
+  <a href="https://libproxy.lamar.edu/login?url=https://www.proquest.com/dissertations-theses/deep-learning-based-particle-identification-gluex/docview/3206450220/se-2?accountid=7043" target="_blank" rel="noopener noreferrer" style="background: var(--global-theme-color); color: white; padding: 0.5rem 1.25rem; border-radius: 6px; font-weight: 600; font-size: 0.875rem; text-decoration: none; white-space: nowrap;">Read Full Paper →</a>
+</div>
 
 ## Introduction
 
