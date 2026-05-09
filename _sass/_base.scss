@@ -577,6 +577,8 @@ footer.sticky-bottom {
         align-items: center;
         gap: 0.5rem;
         font-size: 1rem;
+        word-break: break-all;
+        overflow-wrap: anywhere;
 
         &:hover {
           color: var(--global-theme-color);
@@ -622,6 +624,8 @@ footer.sticky-bottom {
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      word-wrap: break-word;
+      overflow-wrap: anywhere;
     }
 
     .repo-card__meta {
