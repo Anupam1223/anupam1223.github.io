@@ -1,24 +1,7 @@
 ---
 layout: page
 title: Projects
-perma  <div class="project-card">
-    <div class="project-card__badge">ML Pipeline</div>
-    <div class="project-card__icon">⚙️</div>
-    <h3 class="project-card__title">Genesis</h3>
-    <p class="project-card__desc">A full ML pipeline for anomaly detection on industrial SCADA data. Includes normalizing flow models, W&B experiment tracking, data preprocessing, and edge export.</p>
-    <div class="project-card__tags">
-      <span class="project-tag">Python</span>
-      <span class="project-tag">SCADA</span>
-      <span class="project-tag">stochastic model predictive control</span>
-      <span class="project-tag">pandas / numpy</span>
-      <span class="project-tag">scikit-learn</span>
-      <span class="project-tag">Normalizing Flows (Neural Spline)</span>
-    </div>
-    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-      <button class="project-card__btn" onclick="openProjectModal('genesis-app')">View Docs</button>
-      <a class="project-card__btn" style="background: var(--global-card-bg-color); color: var(--global-theme-color); border: 1px solid var(--global-theme-color);" href="https://github.com/Anupam1223/Genesis" target="_blank" rel="noopener noreferrer">GitHub</a>
-    </div>
-  </div>/
+permalink: /projects/
 description: Ongoing projects and expertise — click any project to explore it interactively.
 nav: true
 nav_order: 3
@@ -43,7 +26,7 @@ nav_order: 3
   <div class="project-card">
     <div class="project-card__badge">Interactive</div>
     <div class="project-card__icon">🔥</div>
-    <h3 class="project-card__title">PyTorch</h3>
+    <h3 class="project-card__title">PyTorch Theory</h3>
     <p class="project-card__desc">A slide-by-slide interactive walkthrough of PyTorch fundamentals — tensors, autograd, neural network modules, training loops, and more.</p>
     <div class="project-card__tags">
       <span class="project-tag">React</span>
@@ -61,12 +44,13 @@ nav_order: 3
     <div class="project-card__tags">
       <span class="project-tag">Python</span>
       <span class="project-tag">SCADA</span>
-      <span class="project-tag">stochastic model predictive control</span>
-      <span class="project-tag">pandas / numpy</span>
+      <span class="project-tag">Normalizing Flows</span>
       <span class="project-tag">scikit-learn</span>
-      <span class="project-tag">Normalizing Flows (Neural Spline)</span>
     </div>
-    <a class="project-card__btn" href="https://github.com/Anupam1223/Genesis" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+      <button class="project-card__btn" onclick="openProjectModal('genesis-app')">View Docs</button>
+      <a class="project-card__btn" style="background: var(--global-card-bg-color); color: var(--global-theme-color); border: 1px solid var(--global-theme-color);" href="https://github.com/Anupam1223/Genesis" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
   </div>
 
 </div>
@@ -244,55 +228,3 @@ function closeProjectModal(event) {
   document.body.style.overflow = '';
 }
 </script>
-
-{% if site.enable_project_categories and page.display_categories %}
-  <!-- Display categorized projects -->
-  {% for category in page.display_categories %}
-  <a id="{{ category }}" href=".#{{ category }}">
-    <h2 class="category">{{ category }}</h2>
-  </a>
-  {% assign categorized_projects = site.projects | where: "category", category %}
-  {% assign sorted_projects = categorized_projects | sort: "importance" %}
-  <!-- Generate cards for each project -->
-  {% if page.horizontal %}
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for project in sorted_projects %}
-      {% include projects_horizontal.liquid %}
-    {% endfor %}
-    </div>
-  </div>
-  {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for project in sorted_projects %}
-      {% include projects.liquid %}
-    {% endfor %}
-  </div>
-  {% endif %}
-  {% endfor %}
-
-{% else %}
-
-<!-- Display projects without categories -->
-
-{% assign sorted_projects = site.projects | sort: "importance" %}
-
-  <!-- Generate cards for each project -->
-
-{% if page.horizontal %}
-
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for project in sorted_projects %}
-      {% include projects_horizontal.liquid %}
-    {% endfor %}
-    </div>
-  </div>
-  {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for project in sorted_projects %}
-      {% include projects.liquid %}
-    {% endfor %}
-  </div>
-  {% endif %}
-{% endif %}
