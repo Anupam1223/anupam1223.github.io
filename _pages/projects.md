@@ -1,7 +1,24 @@
 ---
 layout: page
 title: Projects
-permalink: /projects/
+perma  <div class="project-card">
+    <div class="project-card__badge">ML Pipeline</div>
+    <div class="project-card__icon">⚙️</div>
+    <h3 class="project-card__title">Genesis</h3>
+    <p class="project-card__desc">A full ML pipeline for anomaly detection on industrial SCADA data. Includes normalizing flow models, W&B experiment tracking, data preprocessing, and edge export.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">Python</span>
+      <span class="project-tag">SCADA</span>
+      <span class="project-tag">stochastic model predictive control</span>
+      <span class="project-tag">pandas / numpy</span>
+      <span class="project-tag">scikit-learn</span>
+      <span class="project-tag">Normalizing Flows (Neural Spline)</span>
+    </div>
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+      <button class="project-card__btn" onclick="openProjectModal('genesis-app')">View Docs</button>
+      <a class="project-card__btn" style="background: var(--global-card-bg-color); color: var(--global-theme-color); border: 1px solid var(--global-theme-color);" href="https://github.com/Anupam1223/Genesis" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>/
 description: Ongoing projects and expertise — click any project to explore it interactively.
 nav: true
 nav_order: 3
