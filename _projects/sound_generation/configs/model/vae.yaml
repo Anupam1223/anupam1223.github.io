@@ -1,0 +1,103 @@
+# =============================================================================
+# Creative Mirror — Convolutional VAE Architecture Configuration
+# =============================================================================
+# Reference document for the VAE defined in src/models/components.py.
+# These values are NOT read by train_vae.py at runtime (the script uses
+# configs/train_vae.yaml for the scalar it needs: latent_dim).
+# This file exists as architecture documentation and can be wired into a
+# model factory / Hydra instantiate call if you extend the project.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# ENCODER
+# Four strided Conv2d layers that progressively halve H and W while
+# expanding the channel depth. Followed by a Flatten and two Linear
+# heads that produce mu and log-var.
+# -----------------------------------------------------------------------------
+encoder:
+  # in_channels ── Number of input channels from the Mel-Spectrogram tensor.
+  #   Shape arriving at the encoder: [B, 1, 80, 258]  (mono spectrogram)
+  in_channels: 1
+
+  # channel_schedule ── Out-channels at each Conv2d layer.
+  #   Each entry doubles the depth while the spatial dims halve (stride=2).
+  #   [32, 64, 128, 256] is a standard 4× doubling pyramid.
+  channel_schedule: [32, 64, 128, 256]
+
+  # kernel_size ── Convolution kernel size (same for all layers).
+  #   4×4 with stride=2 and padding=1 gives exact 2× downsampling.
+  kernel_size: 4
+
+  # stride ── Spatial downsampling factor per layer.
+  stride: 2
+
+  # padding ── Zero-padding added to each side before convolution.
+  padding: 1
+
+  # activation ── Non-linearity applied after each Conv + BatchNorm block.
+  activation: "leaky_relu"
+  leaky_relu_slope: 0.2
+
+  # use_batch_norm ── Whether to apply BatchNorm2d after each Conv layer.
+  #   Strongly recommended for deep convolutional encoders — stabilises
+  #   training and reduces sensitivity to learning rate choice.
+  use_batch_norm: true
+
+  # Dimensions after all Conv layers (computed, not learned):
+  #   Input  [1,   80,  258]
+  #   Conv1  [32,  40,  129]
+  #   Conv2  [64,  20,   65]
+  #   Conv3  [128, 10,   33]
+  #   Conv4  [256,  5,   17]   → flatten → 256×5×17 = 21,760
+  flattened_dim: 21760
+
+  # linear_hidden ── Width of the intermediate Linear layer between the
+  #   flattened features and the mu / log-var projection heads.
+  linear_hidden: 512
+
+
+# -----------------------------------------------------------------------------
+# BOTTLENECK
+# The reparameterisation trick: z = mu + eps * exp(0.5 * log_var)
+# where eps ~ N(0, I).
+# -----------------------------------------------------------------------------
+bottleneck:
+  # latent_dim ── Dimensionality of the sampled latent vector z.
+  #   Must match the value in configs/train_vae.yaml → model.latent_dim.
+  latent_dim: 256
+
+
+# -----------------------------------------------------------------------------
+# DECODER
+# Mirror of the encoder: Linear projection followed by four
+# ConvTranspose2d layers that upsample back to the original spatial dims.
+# -----------------------------------------------------------------------------
+decoder:
+  # linear_hidden ── Width of the intermediate Linear layer that maps z back
+  #   to a spatial feature map before the transposed convolutions.
+  linear_hidden: 512
+
+  # reshape ── Target shape [C, H, W] after the linear projection, before
+  #   the first ConvTranspose2d. Must equal the encoder's Conv4 output shape.
+  reshape: [256, 5, 17]
+
+  # channel_schedule ── Out-channels at each ConvTranspose2d layer (reverse order).
+  channel_schedule: [128, 64, 32, 1]
+
+  # kernel_size / stride / padding ── Mirror of encoder values for exact inversion.
+  kernel_size: 4
+  stride: 2
+  padding: 1
+
+  # activation ── Applied after every ConvTranspose layer except the last.
+  activation: "relu"
+
+  # output_activation ── Applied after the final ConvTranspose layer.
+  #   tanh squashes the output to [-1, 1], matching the z-score normalised
+  #   Mel-Spectrogram range from preprocessing.py.
+  output_activation: "tanh"
+
+  # use_batch_norm ── BatchNorm in the decoder tends to produce slightly
+  #   blurrier but more stable reconstructions. Disable if you need sharp edges.
+  use_batch_norm: true

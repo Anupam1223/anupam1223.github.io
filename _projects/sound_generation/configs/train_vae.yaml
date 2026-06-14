@@ -1,0 +1,110 @@
+# =============================================================================
+# Creative Mirror — Convolutional VAE Training Configuration
+# =============================================================================
+# Used by:  scripts/train_vae.py
+# Run with: python scripts/train_vae.py
+#
+# This is the single source of truth for every number in the VAE training loop.
+# Change a value here and it propagates automatically to the model, optimizer,
+# dataloader, and W&B logger — nothing is hardcoded in the script.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# DATA
+# Paths and split ratios consumed by AudioLatentDataset + DataLoader.
+# Detailed mel / sample-rate parameters live in configs/data/audio.yaml.
+# -----------------------------------------------------------------------------
+data:
+  # path ── Root directory that contains the preprocessed .pt tensors produced
+  #   by running:  python src/data/preprocessing.py
+  #   Relative to the project root.
+  path: "data/processed"
+
+  # train_split ── Fraction of the full dataset reserved for training.
+  #   The remainder (1 - train_split) becomes the validation set.
+  #   0.9 → 90% train / 10% val is standard for large audio corpora.
+  train_split: 0.90
+
+  # num_workers ── Parallel CPU worker processes for DataLoader prefetching.
+  #   Set to 0 on macOS + MPS: PyTorch shared-memory spawn raises
+  #   "Connection refused" with num_workers > 0 on some macOS versions.
+  #   Increase to 4–8 on Linux / CUDA for faster prefetching.
+  num_workers: 0
+
+
+# -----------------------------------------------------------------------------
+# TRAINING
+# Optimiser, schedule, and loop settings for the VAE training phase.
+# -----------------------------------------------------------------------------
+training:
+  # epochs ── Full passes over the training set.
+  #   50 is enough for the VAE to converge on NSynth + VocalSet combined.
+  #   The best checkpoint is saved automatically whenever val_loss improves,
+  #   so you can safely set this higher and terminate early.
+  epochs: 50
+
+  # batch_size ── Samples per forward + backward pass.
+  #   32 fits comfortably in unified memory on M-series Macs and in 8 GB VRAM
+  #   on CUDA GPUs. Halve to 16 if you see out-of-memory errors.
+  batch_size: 32
+
+  # learning_rate ── Initial AdamW step size.
+  #   1e-4 is the standard starting point for convolutional VAEs on spectrogram
+  #   data. If reconstruction quality plateaus early, try dropping to 5e-5.
+  learning_rate: 1.0e-4
+
+  # beta ── Weight applied to the KL-Divergence term in the ELBO loss.
+  #   loss = MSE_reconstruction + beta × KL_divergence
+  #   beta < 1 → prioritise reconstruction quality (sharper spectrograms).
+  #   beta = 1 → standard VAE (balanced).
+  #   beta > 1 → β-VAE (more disentangled but blurrier reconstructions).
+  #   0.1 is intentionally small here: we want the encoder to compress tightly
+  #   and we will regularise the latent space during Flow training instead.
+  beta: 0.1
+
+  # grad_log_interval ── Log CNN gradient-flow plot to W&B every N steps.
+  #   Logging every step is expensive; 100 is a reasonable balance.
+  grad_log_interval: 100
+
+
+# -----------------------------------------------------------------------------
+# MODEL
+# VAE architecture parameters. Full layer-by-layer details are in
+# configs/model/vae.yaml; the key scalar used by the script is latent_dim.
+# -----------------------------------------------------------------------------
+model:
+  # latent_dim ── Dimensionality of the bottleneck latent vector z.
+  #   256 is a good trade-off: small enough for the Flow to learn in 50 epochs,
+  #   large enough to carry the timbral identity of the sound.
+  #   Must match the latent_dim value passed to AudioLatentFlow in train_flow.yaml.
+  latent_dim: 256
+
+
+# -----------------------------------------------------------------------------
+# LOGGING
+# Weights & Biases experiment tracking settings.
+# -----------------------------------------------------------------------------
+logging:
+  # wandb ── Master switch.
+  #   true  → initialises a W&B run, streams loss curves, reconstructions, PCA plots.
+  #   false → disables all wandb calls; useful for quick offline smoke-tests.
+  wandb: true
+
+  # wandb_project ── Project name under your W&B account.
+  #   Runs appear at: https://wandb.ai/<your-username>/creative-mirror-vae
+  wandb_project: "creative-mirror-vae"
+
+
+# -----------------------------------------------------------------------------
+# CHECKPOINTING
+# Where to save model weights during training.
+# -----------------------------------------------------------------------------
+checkpointing:
+  # dir ── Directory for .pt checkpoint files.
+  #   Created automatically if it does not exist.
+  dir: "outputs/checkpoints"
+
+  # filename ── Name of the best-model checkpoint written when val_loss improves.
+  #   train_flow.py expects this exact filename when loading the frozen VAE.
+  filename: "vae_best.pt"

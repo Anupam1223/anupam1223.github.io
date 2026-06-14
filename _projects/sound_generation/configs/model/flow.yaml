@@ -1,0 +1,91 @@
+# =============================================================================
+# Creative Mirror — Normalizing Flow Architecture Configuration
+# =============================================================================
+# Reference document for AudioLatentFlow defined in src/models/flow_model.py.
+# The scalar values train_flow.py uses (latent_dim, num_layers, hidden_dim)
+# are read from configs/train_flow.yaml → model section.
+# This file documents the full architectural reasoning and can be wired into
+# a model factory / Hydra instantiate call if you extend the project.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# INPUT
+# The flow operates on the 256-D latent vectors produced by the frozen VAE encoder.
+# -----------------------------------------------------------------------------
+input:
+  # dim ── Dimensionality of the latent vector z from the VAE bottleneck.
+  #   Must match configs/train_vae.yaml → model.latent_dim.
+  dim: 256
+
+
+# -----------------------------------------------------------------------------
+# COUPLING LAYERS  (RealNVP-style Affine Coupling)
+# Each AffineCouplingLayer splits the 256-D input in half:
+#   - The first 128 dims pass through unchanged (identity).
+#   - The second 128 dims are scaled and shifted by an MLP conditioned on the first.
+# Layers alternate which half is the "identity half" via torch.flip.
+# -----------------------------------------------------------------------------
+coupling:
+  # num_layers ── Number of stacked AffineCouplingLayer blocks.
+  #   8 layers gives 4 full round-trips through both halves of the latent space,
+  #   which is enough expressivity for a 256-D audio distribution.
+  num_layers: 8
+
+  # split_dim ── Index at which to split z into two halves.
+  #   256 / 2 = 128. The MLP sees dims [0:128] and transforms [128:256].
+  split_dim: 128
+
+
+# -----------------------------------------------------------------------------
+# COUPLING MLP
+# The scale-and-shift network s(·), t(·) inside each coupling layer.
+# Input size  = split_dim = 128
+# Output size = split_dim × 2 = 256  (128 for scale + 128 for shift)
+# -----------------------------------------------------------------------------
+mlp:
+  # hidden_dim ── Width of every Linear layer in the coupling MLP.
+  #   256 neurons match the latent dimension — a common heuristic that gives
+  #   the network enough capacity without making it wider than the data space.
+  hidden_dim: 256
+
+  # num_layers ── Depth of the coupling MLP (number of hidden Linear layers).
+  #   2 hidden layers is sufficient for modelling correlations in a 128-D
+  #   half-space. Increasing to 3 adds ~100 k parameters with little gain.
+  num_layers: 2
+
+  # activation ── Non-linearity between hidden layers.
+  #   ReLU is fast and avoids vanishing gradients; GELU gives smoother gradients
+  #   but is marginally slower on MPS. ReLU is preferred here.
+  activation: "relu"
+
+  # scale_activation ── Squashes the scale output s(x) to prevent the coupling
+  #   layer from producing explosively large or small scale factors.
+  #   tanh keeps s ∈ (-1, 1); combined with the exp in the affine transform,
+  #   this bounds the per-dimension scale factor to exp(±1) ≈ [0.37, 2.72].
+  scale_activation: "tanh"
+
+
+# -----------------------------------------------------------------------------
+# PRIOR
+# The base distribution that the flow maps the data space to/from.
+# During training: data → flow(data) should look like samples from this prior.
+# During sampling: sample from prior → flow_inverse(sample) → new latent z.
+# -----------------------------------------------------------------------------
+prior:
+  # distribution ── Standard isotropic Gaussian: p(z) = N(0, I).
+  distribution: "normal"
+  mean: 0.0
+  std: 1.0
+
+
+# -----------------------------------------------------------------------------
+# LOSS
+# Negative Log-Likelihood objective:
+#   NLL = -log p(z) - log|det J|
+# where log p(z) is the Gaussian log-prob and log|det J| is the accumulated
+# log-determinant from all AffineCouplingLayer scale networks.
+# -----------------------------------------------------------------------------
+loss:
+  # objective ── "nll" → maximise log-likelihood (minimise negative LL).
+  objective: "nll"
