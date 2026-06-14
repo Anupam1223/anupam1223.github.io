@@ -53,6 +53,23 @@ nav_order: 3
     </div>
   </div>
 
+  <div class="project-card">
+    <div class="project-card__badge">Audio AI</div>
+    <div class="project-card__icon">🎵</div>
+    <h3 class="project-card__title">Creative Mirror</h3>
+    <p class="project-card__desc">A generative audio AI pipeline using Convolutional VAEs and Normalizing Flows to map raw audio inputs into a smooth latent space — enabling exploration of coherent, unexpected sound variations.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">Python</span>
+      <span class="project-tag">VAE</span>
+      <span class="project-tag">Normalizing Flows</span>
+      <span class="project-tag">Audio ML</span>
+    </div>
+    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+      <button class="project-card__btn" onclick="openProjectModal('sound-generation-app')">View Docs</button>
+      <a class="project-card__btn" style="background: var(--global-card-bg-color); color: var(--global-theme-color); border: 1px solid var(--global-theme-color);" href="https://github.com/Anupam1223/sound_generation" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+  </div>
+
 </div>
 
 <!-- Modal Overlay -->
