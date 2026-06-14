@@ -89,6 +89,11 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Genesis/notebooks/explore_preprocessing/";
+            },},{id: "projects-explore-preprocessing",
+          title: 'Explore_preprocessing',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/sound_generation/notebooks/explore_preprocessing/";
             },},{
         id: 'social-email',
         title: 'email',

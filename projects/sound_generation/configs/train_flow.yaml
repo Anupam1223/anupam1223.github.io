@@ -1,0 +1,123 @@
+# =============================================================================
+# Creative Mirror — Normalizing Flow Training Configuration
+# =============================================================================
+# Used by:  scripts/train_flow.py
+# Run with: python scripts/train_flow.py
+#
+# PREREQUISITE: scripts/train_vae.py must have completed successfully and saved
+#   outputs/checkpoints/vae_best.pt before this script is run.
+#
+# The Flow trainer keeps the VAE frozen and trains only the Affine Coupling
+# layers to map the 256-dimensional audio latent space → N(0, I).
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# DATA
+# Same processed tensors as the VAE stage; the frozen VAE encodes them on-the-fly.
+# -----------------------------------------------------------------------------
+data:
+  # path ── Root directory of the preprocessed .pt tensors.
+  #   Produced by: python src/data/preprocessing.py
+  path: "data/processed"
+
+  # train_split ── Keep at 0.90 to match the VAE split.
+  #   Using the same ratio means the flow sees a distribution that closely
+  #   matches what the VAE was validated on.
+  train_split: 0.90
+
+  # num_workers ── See note in train_vae.yaml.
+  #   Set to 0 on macOS + MPS to avoid spawn errors.
+  num_workers: 0
+
+
+# -----------------------------------------------------------------------------
+# TRAINING
+# Optimiser and loop settings for the Normalizing Flow training phase.
+# -----------------------------------------------------------------------------
+training:
+  # epochs ── 50 epochs is typically sufficient for an 8-layer RealNVP-style
+  #   flow to converge on a 256-dim latent space. Increase to 100 if the val
+  #   loss is still falling at epoch 50.
+  epochs: 50
+
+  # batch_size ── 32 is safe on M-series Mac / 8 GB VRAM.
+  #   Flow forward passes are cheaper than VAE forward + backward, so you
+  #   can increase to 64 if memory allows for faster wall-clock convergence.
+  batch_size: 32
+
+  # learning_rate ── AdamW initial step size.
+  #   3e-4 is the standard "Karpathy constant" for transformer-class models
+  #   and works well for affine coupling flows of this size.
+  #   If NLL diverges in the first 5 epochs, halve to 1.5e-4.
+  learning_rate: 3.0e-4
+
+  # weight_decay ── AdamW L2 regularisation (applied to weights only, not biases).
+  #   1e-5 is deliberately light: the flow already regularises itself through
+  #   the KL term implicit in the NLL objective.
+  weight_decay: 1.0e-5
+
+  # grad_clip ── Maximum L2 norm of the gradient vector before rescaling.
+  #   Affine coupling layers can produce large log-det gradients on badly
+  #   initialised batches. 1.0 is a safe ceiling.
+  grad_clip: 1.0
+
+
+# -----------------------------------------------------------------------------
+# MODEL
+# AudioLatentFlow architecture. Full layer details are in configs/model/flow.yaml.
+# The scalars below are the ones train_flow.py constructs the model with directly.
+# -----------------------------------------------------------------------------
+model:
+  # latent_dim ── Must match the latent_dim from train_vae.yaml.
+  #   The Flow input dimension equals the VAE bottleneck output dimension.
+  latent_dim: 256
+
+  # num_layers ── Number of stacked AffineCouplingLayer blocks.
+  #   More layers → more expressive bijection, slower training.
+  #   8 layers comfortably models the 256-dim audio distribution without
+  #   overfitting on NSynth + VocalSet combined (~300 k clips).
+  num_layers: 8
+
+  # hidden_dim ── Width of every Linear layer inside each coupling MLP.
+  #   256 gives the MLP enough capacity to model non-linear correlations
+  #   between latent dimensions without ballooning parameter count.
+  hidden_dim: 256
+
+
+# -----------------------------------------------------------------------------
+# VAE BRIDGE
+# Path to the frozen VAE encoder used to produce latent vectors on-the-fly.
+# The trainer automatically freezes all VAE parameters before training starts.
+# -----------------------------------------------------------------------------
+vae:
+  # checkpoint ── Relative path to the best VAE weights saved by train_vae.py.
+  #   If you retrain the VAE under a different name, update this path.
+  checkpoint: "outputs/checkpoints/vae_best.pt"
+
+
+# -----------------------------------------------------------------------------
+# LOGGING
+# Weights & Biases experiment tracking settings.
+# -----------------------------------------------------------------------------
+logging:
+  # wandb ── Master switch.
+  #   true  → streams NLL loss curves and sampled "dreamt" Mel-Spectrograms.
+  #   false → fully offline; no network calls.
+  wandb: true
+
+  # wandb_project ── Project name under your W&B account.
+  #   Runs appear at: https://wandb.ai/<your-username>/creative-mirror-flow
+  wandb_project: "creative-mirror-flow"
+
+
+# -----------------------------------------------------------------------------
+# CHECKPOINTING
+# -----------------------------------------------------------------------------
+checkpointing:
+  # dir ── Same directory as the VAE checkpoint so both models live together.
+  dir: "outputs/checkpoints"
+
+  # filename ── Best Flow weights, saved when val NLL improves.
+  #   evaluate.py and inference scripts expect this exact name.
+  filename: "flow_best.pt"

@@ -1,0 +1,131 @@
+# =============================================================================
+# Creative Mirror — Audio Data Pipeline Configuration
+# =============================================================================
+# ⚡ ACTIVE CONFIG — read at runtime by src/data/preprocessing.py
+#
+# Every constant in the preprocessing pipeline is driven from this file.
+# To change the audio representation, edit the values below and re-run:
+#
+#   python src/data/preprocessing.py
+#
+# ⚠️  Changing any value under [audio], [mel], or [normalisation] invalidates
+#     all existing data/processed/*.pt files and requires retraining the VAE.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# RAW DATA
+# Where to find the original audio archives before preprocessing.
+# -----------------------------------------------------------------------------
+raw:
+  # dir ── Root directory for raw datasets and archive files.
+  dir: "data/raw"
+
+  # datasets ── List of datasets used. Each entry documents the expected
+  #   archive filename and the directory created after extraction.
+  datasets:
+    - name: "VocalSet"
+      archive: "VocalSet.zip"
+      extracted_dir: "VocalSet"
+      description: >
+        Human vocal technique recordings spanning 20 singers,
+        9 vowels, and 17 vocal techniques. Provides the vocal
+        half of the training distribution.
+
+    - name: "NSynth"
+      archive: "nsynth-valid.jsonwav.tar"
+      extracted_dir: "nsynth-valid"
+      description: >
+        Google Magenta's large-scale instrument note dataset.
+        ~300 k 4-second audio clips at 16 kHz, covering 1,006
+        instruments across 11 families.
+
+
+# -----------------------------------------------------------------------------
+# PROCESSED DATA
+# Output directory for the preprocessed .pt tensor files.
+# -----------------------------------------------------------------------------
+processed:
+  # dir ── Where normalised Mel-Spectrogram tensors (.pt files) are saved.
+  #   Each file contains one tensor of shape [1, N_MELS, time_frames].
+  dir: "data/processed"
+
+  # filename_template ── Python format string used to name each tensor.
+  #   {idx:06d} pads the index to 6 digits; {stem} is the original filename.
+  filename_template: "item_{idx:06d}_{stem}.pt"
+
+
+# -----------------------------------------------------------------------------
+# AUDIO STANDARDISATION
+# Every .wav file is normalised to these settings before feature extraction.
+# Changing any value requires re-running preprocessing.py from scratch.
+# -----------------------------------------------------------------------------
+audio:
+  # sample_rate ── Target sample rate in Hz.
+  #   22,050 Hz is the standard for music audio ML tasks — it captures the
+  #   full audible frequency range (up to 11,025 Hz by Nyquist) while keeping
+  #   the tensor 50% smaller than 44.1 kHz sources.
+  sample_rate: 22050
+
+  # duration_seconds ── Each clip is trimmed or zero-padded to this length.
+  #   3 seconds × 22,050 Hz = 66,150 samples per clip.
+  #   3 s captures a full note onset, sustain, and early decay for most
+  #   instruments and vocal techniques in VocalSet / NSynth.
+  duration_seconds: 3
+
+  # target_samples ── Derived constant: sample_rate × duration_seconds.
+  #   Kept explicit here to avoid silent errors if either parent changes.
+  target_samples: 66150
+
+  # channels ── Target number of audio channels after mono conversion.
+  #   1 = mono. Stereo inputs are averaged: torch.mean(waveform, dim=0).
+  channels: 1
+
+
+# -----------------------------------------------------------------------------
+# MEL-SPECTROGRAM  (torchaudio.transforms.MelSpectrogram)
+# Parameters for the Short-Time Fourier Transform and Mel filterbank.
+# Changing any of these changes the output tensor shape and requires
+# re-running preprocessing.py AND retraining the VAE from scratch.
+# -----------------------------------------------------------------------------
+mel:
+  # n_fft ── FFT window length in samples.
+  #   1024 samples @ 22,050 Hz ≈ 46 ms per window. Long enough to resolve
+  #   individual harmonics on bass notes; short enough to track fast transients.
+  n_fft: 1024
+
+  # hop_length ── Step size between successive STFT windows, in samples.
+  #   256 samples = ~11.6 ms hop. With n_fft=1024 this gives 75% overlap,
+  #   which is the standard for high-quality spectrograms.
+  #   Time frames = ceil(target_samples / hop_length) = ceil(66150 / 256) = 258
+  hop_length: 256
+
+  # n_mels ── Number of Mel filterbank bins (frequency axis height).
+  #   80 bins is the widely adopted value for audio generation models
+  #   (WaveNet, MelGAN, HiFi-GAN all use 80). Covers 0–11,025 Hz perceptually.
+  n_mels: 80
+
+  # Output tensor shape (derived, for reference):
+  #   [1, n_mels, time_frames] = [1, 80, 258]
+
+  # f_min ── Minimum frequency included in the Mel filterbank (Hz).
+  #   0 Hz includes the full low-end; raise to 20 Hz to exclude sub-bass rumble.
+  f_min: 0.0
+
+  # f_max ── Maximum frequency (Hz). null → uses sample_rate / 2 (Nyquist).
+  f_max: null
+
+
+# -----------------------------------------------------------------------------
+# NORMALISATION
+# Applied inside preprocessing.py after AmplitudeToDB conversion.
+# -----------------------------------------------------------------------------
+normalisation:
+  # method ── "z_score" → (x - mean) / (std + epsilon), computed per sample.
+  #   Per-sample normalisation avoids dataset-wide statistics that would need
+  #   to be recomputed every time new audio is added.
+  method: "z_score"
+
+  # epsilon ── Small constant added to std to prevent division by zero on
+  #   silent or near-silent clips.
+  epsilon: 1.0e-5

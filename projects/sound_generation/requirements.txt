@@ -1,0 +1,20 @@
+torch==2.8.0
+torchaudio==2.8.0
+librosa==0.11.0
+numpy==2.0.2
+scipy==1.13.1
+
+# Utilities & Tracking
+tqdm==4.68.2
+wandb
+matplotlib==3.9.4
+
+# API & Serving
+fastapi==0.128.8
+uvicorn==0.39.0
+python-multipart==0.0.20
+pydantic==2.13.4
+
+# User Interface
+gradio==4.44.1
+PyYAML==6.0.1
