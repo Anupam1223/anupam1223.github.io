@@ -9,33 +9,6 @@ nav_order: 3
 
 <!-- Project Cards Grid -->
 <div class="project-cards-grid">
-
-  <div class="project-card">
-    <div class="project-card__badge">Interactive</div>
-    <div class="project-card__icon">🌊</div>
-    <h3 class="project-card__title">Normalizing Flows</h3>
-    <p class="project-card__desc">An interactive visual explainer stepping through the intuition behind normalizing flows — bijective transformations, change of variables, and density estimation.</p>
-    <div class="project-card__tags">
-      <span class="project-tag">React</span>
-      <span class="project-tag">Math Viz</span>
-      <span class="project-tag">ML Theory</span>
-    </div>
-    <button class="project-card__btn" onclick="openProjectModal('slider-app')">View Project</button>
-  </div>
-
-  <div class="project-card">
-    <div class="project-card__badge">Interactive</div>
-    <div class="project-card__icon">🔥</div>
-    <h3 class="project-card__title">PyTorch Theory</h3>
-    <p class="project-card__desc">A slide-by-slide interactive walkthrough of PyTorch fundamentals — tensors, autograd, neural network modules, training loops, and more.</p>
-    <div class="project-card__tags">
-      <span class="project-tag">React</span>
-      <span class="project-tag">PyTorch</span>
-      <span class="project-tag">Deep Learning</span>
-    </div>
-    <button class="project-card__btn" onclick="openProjectModal('pytorch-app')">View Project</button>
-  </div>
-
   <div class="project-card">
     <div class="project-card__badge">ML Pipeline</div>
     <div class="project-card__icon">⚙️</div>
@@ -68,6 +41,32 @@ nav_order: 3
       <button class="project-card__btn" onclick="openProjectModal('sound-generation-app')">View Docs</button>
       <a class="project-card__btn" style="background: var(--global-card-bg-color); color: var(--global-theme-color); border: 1px solid var(--global-theme-color);" href="https://github.com/Anupam1223/sound_generation" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
+  </div>
+  
+  <div class="project-card">
+    <div class="project-card__badge">Interactive</div>
+    <div class="project-card__icon">🌊</div>
+    <h3 class="project-card__title">Normalizing Flows</h3>
+    <p class="project-card__desc">An interactive visual explainer stepping through the intuition behind normalizing flows — bijective transformations, change of variables, and density estimation.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">React</span>
+      <span class="project-tag">Math Viz</span>
+      <span class="project-tag">ML Theory</span>
+    </div>
+    <button class="project-card__btn" onclick="openProjectModal('slider-app')">View Project</button>
+  </div>
+
+  <div class="project-card">
+    <div class="project-card__badge">Interactive</div>
+    <div class="project-card__icon">🔥</div>
+    <h3 class="project-card__title">PyTorch Theory</h3>
+    <p class="project-card__desc">A slide-by-slide interactive walkthrough of PyTorch fundamentals — tensors, autograd, neural network modules, training loops, and more.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">React</span>
+      <span class="project-tag">PyTorch</span>
+      <span class="project-tag">Deep Learning</span>
+    </div>
+    <button class="project-card__btn" onclick="openProjectModal('pytorch-app')">View Project</button>
   </div>
 
 </div>
