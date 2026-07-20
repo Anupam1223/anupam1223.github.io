@@ -178,6 +178,8 @@ exclude:
   - _projects/pytorch_learn/theory/node_modules
   - _projects/Genesis/documentation/node_modules
   - _projects/normalizing_flow_react_slider/node_modules
+  - _projects/vae/node_modules
+  - _projects/vae/dist
   - CONTRIBUTING.md
   - CUSTOMIZE.md
   - Dockerfile

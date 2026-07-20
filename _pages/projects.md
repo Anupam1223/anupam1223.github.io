@@ -69,6 +69,19 @@ nav_order: 3
     <button class="project-card__btn" onclick="openProjectModal('pytorch-app')">View Project</button>
   </div>
 
+  <div class="project-card">
+    <div class="project-card__badge">Interactive</div>
+    <div class="project-card__icon">🧠</div>
+    <h3 class="project-card__title">VAE Explainer</h3>
+    <p class="project-card__desc">An interactive slide walkthrough of Variational Autoencoders — latent variable models, the ELBO, reparameterization, and modern VAE variants like β-VAE, CVAE, and VQ-VAE.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">React</span>
+      <span class="project-tag">VAE</span>
+      <span class="project-tag">ML Theory</span>
+    </div>
+    <button class="project-card__btn" onclick="openProjectModal('vae-app')">View Project</button>
+  </div>
+
 </div>
 
 <!-- Modal Overlay -->
