@@ -58,19 +58,6 @@ nav_order: 3
 
   <div class="project-card">
     <div class="project-card__badge">Interactive</div>
-    <div class="project-card__icon">🔥</div>
-    <h3 class="project-card__title">PyTorch Theory</h3>
-    <p class="project-card__desc">A slide-by-slide interactive walkthrough of PyTorch fundamentals — tensors, autograd, neural network modules, training loops, and more.</p>
-    <div class="project-card__tags">
-      <span class="project-tag">React</span>
-      <span class="project-tag">PyTorch</span>
-      <span class="project-tag">Deep Learning</span>
-    </div>
-    <button class="project-card__btn" onclick="openProjectModal('pytorch-app')">View Project</button>
-  </div>
-
-  <div class="project-card">
-    <div class="project-card__badge">Interactive</div>
     <div class="project-card__icon">🧠</div>
     <h3 class="project-card__title">VAE Explainer</h3>
     <p class="project-card__desc">An interactive slide walkthrough of Variational Autoencoders — latent variable models, the ELBO, reparameterization, and modern VAE variants like β-VAE, CVAE, and VQ-VAE.</p>
@@ -80,6 +67,19 @@ nav_order: 3
       <span class="project-tag">ML Theory</span>
     </div>
     <button class="project-card__btn" onclick="openProjectModal('vae-app')">View Project</button>
+  </div>
+
+  <div class="project-card">
+    <div class="project-card__badge">Interactive</div>
+    <div class="project-card__icon">🔥</div>
+    <h3 class="project-card__title">PyTorch Theory</h3>
+    <p class="project-card__desc">A slide-by-slide interactive walkthrough of PyTorch fundamentals — tensors, autograd, neural network modules, training loops, and more.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">React</span>
+      <span class="project-tag">PyTorch</span>
+      <span class="project-tag">Deep Learning</span>
+    </div>
+    <button class="project-card__btn" onclick="openProjectModal('pytorch-app')">View Project</button>
   </div>
 
 </div>
