@@ -2,7 +2,7 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: Ongoing projects and expertise — click any project to explore it interactively.
+description: Ongoing projects and expertise — Select a project to explore its features. Be sure to click through the various tabs, and don't forget to scroll to the bottom to find the button for the next page!
 nav: true
 nav_order: 3
 ---
