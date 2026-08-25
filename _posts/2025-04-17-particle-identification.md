@@ -7,8 +7,8 @@ giscus_comments: true
 date: 2025-04-17
 featured: true
 mermaid:
-  enabled: true
-  zoomable: true
+  enabled: false
+  zoomable: false
 code_diff: false
 map: false
 chart:
@@ -130,20 +130,6 @@ _styles: >
     letter-spacing: 0.02em;
     color: var(--global-text-color-light);
   }
-  .math-panel {
-    background: var(--global-card-bg-color);
-    border: 1px solid var(--global-divider-color);
-    border-radius: 10px;
-    padding: 0.85rem 1.1rem;
-    margin: 0.85rem 0 1.25rem;
-    overflow-x: auto;
-  }
-  .math-panel .katex,
-  .math-panel .katex *,
-  .math-panel span.katex,
-  .math-panel span.katex * {
-    color: var(--global-text-color) !important;
-  }
   .callout {
     background: var(--global-card-bg-color);
     border: 1px solid var(--global-divider-color);
@@ -154,7 +140,27 @@ _styles: >
   .callout strong {
     color: var(--global-theme-color);
   }
-  /* Extra insurance against Distill's near-black KaTeX color */
+  .pipeline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 1rem 0 1.75rem;
+  }
+  .pipeline__step {
+    background: var(--global-card-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--global-text-color);
+  }
+  .pipeline__arrow {
+    color: var(--global-theme-color);
+    font-weight: 700;
+  }
+  /* Distill hard-codes near-black KaTeX; force theme text + panel chrome */
   d-article span.katex,
   d-article span.katex *,
   d-article .katex,
@@ -162,6 +168,16 @@ _styles: >
   d-article .katex-display,
   d-article .katex-display * {
     color: var(--global-text-color) !important;
+  }
+  d-article .katex-display,
+  d-article span.katex-display {
+    display: block;
+    background: var(--global-card-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    margin: 0.85rem 0 1.25rem;
+    overflow-x: auto;
   }
 ---
 
@@ -202,18 +218,24 @@ The Glue-X experiment at Jefferson Laboratory (JLAB Hall D) plays a crucial role
 This thesis builds a practical deep-learning pipeline for particle identification (PID) on GlueX detector data — comparing neural networks with classical baselines, tuning models with Optuna, and packaging a reproducible workflow physicists can run end-to-end.
 
 <div class="callout">
-  <strong>At a glance.</strong> Detector hits → cleaned features → optimized DNN → calibrated class probabilities for $e^\pm$, $\mu^\pm$, $\pi^\pm$, $p^\pm$, and $K^\pm$.
+  <strong>At a glance.</strong> Detector hits → cleaned features → optimized DNN → calibrated class probabilities for e±, μ±, π±, p±, and K±.
 </div>
 
-```mermaid
-flowchart LR
-  A[ROOT / CSV / JSON] --> B[Clean &amp; Encode]
-  B --> C[Physics Features]
-  C --> D[Normalize]
-  D --> E[DNN + Softmax]
-  E --> F[Optuna Tuning]
-  F --> G[Eval on Held-out Test]
-```
+<div class="pipeline">
+  <span class="pipeline__step">ROOT / CSV / JSON</span>
+  <span class="pipeline__arrow">→</span>
+  <span class="pipeline__step">Clean &amp; Encode</span>
+  <span class="pipeline__arrow">→</span>
+  <span class="pipeline__step">Physics Features</span>
+  <span class="pipeline__arrow">→</span>
+  <span class="pipeline__step">Normalize</span>
+  <span class="pipeline__arrow">→</span>
+  <span class="pipeline__step">DNN + Softmax</span>
+  <span class="pipeline__arrow">→</span>
+  <span class="pipeline__step">Optuna Tuning</span>
+  <span class="pipeline__arrow">→</span>
+  <span class="pipeline__step">Held-out Eval</span>
+</div>
 
 ### About Glue-X
 
@@ -313,11 +335,9 @@ This reduces model complexity and prevents redundant information from introducin
 
 **Activation Function: ReLU**
 
-<div class="math-panel">
-
-$$f(x) = \max(0, x)$$
-
-</div>
+$$
+f(x) = \max(0, x)
+$$
 
 ReLU was chosen over alternatives like Sigmoid or Tanh because it:
 - Preserves strong activations and zeros out irrelevant ones
@@ -332,41 +352,38 @@ Each layer transforms its input through learned parameters, capturing hierarchic
 
 The softmax function converts raw network outputs (logits) into a probability distribution:
 
-<div class="math-panel">
-
-$$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$$
-
-</div>
+$$
+\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}
+$$
 
 **Example**: For a 5-class particle identification problem with logits [0, 1, 2.0, 0, 1]:
 
-<div class="math-panel">
+$$
+e^0 = 1, \quad e^1 \approx 2.718, \quad e^{2.0} \approx 7.389
+$$
 
-$$e^0 = 1, \quad e^1 ≈ 2.718, \quad e^{2.0} ≈ 7.389$$
+$$
+\text{Sum} = 1 + 2.718 + 7.389 + 1 + 2.718 = 14.825
+$$
 
-$$\text{Sum} = 1 + 2.718 + 7.389 + 1 + 2.718 = 14.825$$
-
-$$P(\text{class 1}) = 2.718 / 14.825 ≈ 0.183$$
-
-</div>
+$$
+P(\text{class 1}) = 2.718 / 14.825 \approx 0.183
+$$
 
 ### Loss Function: Categorical Cross-Entropy
 
 Cross-entropy measures how close predicted probabilities are to true class labels:
 
-<div class="math-panel">
-
-$$L = -\sum_i y_i \log(\hat{y}_i)$$
-
-</div>
+$$
+L = -\sum_i y_i \log(\hat{y}_i)
+$$
 
 For a true label [0, 0, 1, 0, 0] with predicted probabilities [0.1, 0.2, 0.6, 0.1, 0.0]:
 
-<div class="math-panel">
+$$
+L = -\log(0.6) \approx 0.511
+$$
 
-$$L = -\log(0.6) ≈ 0.511$$
-
-</div>
 
 Lower cross-entropy indicates better predictions. During optimization, gradients flow backward through the network to minimize this loss.
 

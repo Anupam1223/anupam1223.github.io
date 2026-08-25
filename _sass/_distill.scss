@@ -51,6 +51,16 @@ d-article {
     fill: var(--global-text-color) !important;
     stroke: var(--global-text-color) !important;
   }
+  .katex-display,
+  span.katex-display {
+    display: block;
+    background: var(--global-card-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    margin: 0.85rem 0 1.25rem;
+    overflow-x: auto;
+  }
   h1,
   h2,
   hr,
