@@ -17,7 +17,7 @@ chart:
   vega_lite: false
 tikzjax: false
 typograms: false
-external_source: "https://libproxy.lamar.edu/login?url=https://www.proquest.com/dissertations-theses/deep-learning-based-particle-identification-gluex/docview/3206450220/se-2?accountid=7043"
+external_source: "/assets/pdf/Siwakoti_Anupam_GlueX_PID_Thesis.pdf"
 
 authors:
   - name: Anupam Siwakoti
@@ -51,33 +51,169 @@ toc:
   - name: References
 
 _styles: >
-  .fake-img {
-    background: #bbb;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 12px;
+  .thesis-banner {
+    background: var(--global-card-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-left: 4px solid var(--global-theme-color);
+    border-radius: 10px;
+    padding: 1.1rem 1.35rem;
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
-  .fake-img p {
-    font-family: monospace;
-    color: white;
-    text-align: left;
-    margin: 12px 0;
+  .thesis-banner__meta {
+    font-size: 0.9rem;
+    color: var(--global-text-color-light);
+  }
+  a.thesis-cta {
+    display: inline-block;
+    background: var(--global-theme-color) !important;
+    color: #0b1220 !important;
+    padding: 0.65rem 1.35rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  }
+  a.thesis-cta:hover {
+    opacity: 0.92;
+    color: #0b1220 !important;
+  }
+  a.thesis-cta-secondary {
+    display: inline-block;
+    color: var(--global-theme-color) !important;
+    border: 1px solid var(--global-theme-color);
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none !important;
+    border-bottom: none !important;
+    white-space: nowrap;
+  }
+  .thesis-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+  }
+  .result-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.85rem;
+    margin: 0 0 2rem;
+  }
+  .result-pill {
+    background: var(--global-card-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
     text-align: center;
-    font-size: 16px;
+  }
+  .result-pill__value {
+    display: block;
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--global-theme-color);
+    line-height: 1.2;
+  }
+  .result-pill__label {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--global-text-color-light);
+  }
+  .math-panel {
+    background: var(--global-card-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    margin: 0.85rem 0 1.25rem;
+    overflow-x: auto;
+  }
+  .math-panel .katex,
+  .math-panel .katex *,
+  .math-panel span.katex,
+  .math-panel span.katex * {
+    color: var(--global-text-color) !important;
+  }
+  .callout {
+    background: var(--global-card-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 1.25rem 0;
+  }
+  .callout strong {
+    color: var(--global-theme-color);
+  }
+  /* Extra insurance against Distill's near-black KaTeX color */
+  d-article span.katex,
+  d-article span.katex *,
+  d-article .katex,
+  d-article .katex *,
+  d-article .katex-display,
+  d-article .katex-display * {
+    color: var(--global-text-color) !important;
   }
 ---
 
-<div style="background: var(--global-card-bg-color); border: 1px solid var(--global-divider-color); border-left: 4px solid var(--global-theme-color); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+<div class="thesis-banner">
   <div>
-    <strong>📄 Published Thesis</strong><br>
-    <span style="font-size: 0.9rem; color: var(--global-text-color-light);">ProQuest Dissertations & Theses · April 17, 2025 · Lamar University</span>
+    <strong>Published Thesis</strong><br>
+    <span class="thesis-banner__meta">ProQuest Dissertations &amp; Theses · April 17, 2025 · Lamar University × Jefferson Lab</span>
   </div>
-  <a href="https://libproxy.lamar.edu/login?url=https://www.proquest.com/dissertations-theses/deep-learning-based-particle-identification-gluex/docview/3206450220/se-2?accountid=7043" target="_blank" rel="noopener noreferrer" style="background: var(--global-theme-color); color: white; padding: 0.5rem 1.25rem; border-radius: 6px; font-weight: 600; font-size: 0.875rem; text-decoration: none; white-space: nowrap;">Read Full Paper →</a>
+  <div class="thesis-cta-row">
+    <a class="thesis-cta" href="{{ '/assets/pdf/Siwakoti_Anupam_GlueX_PID_Thesis.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer">Download PDF</a>
+    <a class="thesis-cta-secondary" href="https://www.proquest.com/dissertations-theses/deep-learning-based-particle-identification-gluex/docview/3206450220/se-2" target="_blank" rel="noopener noreferrer">ProQuest record</a>
+  </div>
+</div>
+
+<div class="result-strip">
+  <div class="result-pill">
+    <span class="result-pill__value">93%</span>
+    <span class="result-pill__label">Test accuracy (unseen)</span>
+  </div>
+  <div class="result-pill">
+    <span class="result-pill__value">5</span>
+    <span class="result-pill__label">Particle classes</span>
+  </div>
+  <div class="result-pill">
+    <span class="result-pill__value">Optuna</span>
+    <span class="result-pill__label">Hyperparameter search</span>
+  </div>
+  <div class="result-pill">
+    <span class="result-pill__value">PyTorch</span>
+    <span class="result-pill__label">Training &amp; deployment</span>
+  </div>
 </div>
 
 ## Introduction
 
 The Glue-X experiment at Jefferson Laboratory (JLAB Hall D) plays a crucial role in exploring Quantum Chromodynamics (QCD) through particle physics research. This experiment produces a photon beam with energies ranging from 6 to 11.7 GeV using the Bremsstrahlung technique, creating conditions to study exotic particles and fundamental interactions.
+
+This thesis builds a practical deep-learning pipeline for particle identification (PID) on GlueX detector data — comparing neural networks with classical baselines, tuning models with Optuna, and packaging a reproducible workflow physicists can run end-to-end.
+
+<div class="callout">
+  <strong>At a glance.</strong> Detector hits → cleaned features → optimized DNN → calibrated class probabilities for $e^\pm$, $\mu^\pm$, $\pi^\pm$, $p^\pm$, and $K^\pm$.
+</div>
+
+```mermaid
+flowchart LR
+  A[ROOT / CSV / JSON] --> B[Clean &amp; Encode]
+  B --> C[Physics Features]
+  C --> D[Normalize]
+  D --> E[DNN + Softmax]
+  E --> F[Optuna Tuning]
+  F --> G[Eval on Held-out Test]
+```
 
 ### About Glue-X
 
@@ -177,7 +313,11 @@ This reduces model complexity and prevents redundant information from introducin
 
 **Activation Function: ReLU**
 
+<div class="math-panel">
+
 $$f(x) = \max(0, x)$$
+
+</div>
 
 ReLU was chosen over alternatives like Sigmoid or Tanh because it:
 - Preserves strong activations and zeros out irrelevant ones
@@ -192,22 +332,41 @@ Each layer transforms its input through learned parameters, capturing hierarchic
 
 The softmax function converts raw network outputs (logits) into a probability distribution:
 
+<div class="math-panel">
+
 $$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$$
 
+</div>
+
 **Example**: For a 5-class particle identification problem with logits [0, 1, 2.0, 0, 1]:
+
+<div class="math-panel">
+
 $$e^0 = 1, \quad e^1 ≈ 2.718, \quad e^{2.0} ≈ 7.389$$
+
 $$\text{Sum} = 1 + 2.718 + 7.389 + 1 + 2.718 = 14.825$$
+
 $$P(\text{class 1}) = 2.718 / 14.825 ≈ 0.183$$
+
+</div>
 
 ### Loss Function: Categorical Cross-Entropy
 
 Cross-entropy measures how close predicted probabilities are to true class labels:
 
+<div class="math-panel">
+
 $$L = -\sum_i y_i \log(\hat{y}_i)$$
+
+</div>
 
 For a true label [0, 0, 1, 0, 0] with predicted probabilities [0.1, 0.2, 0.6, 0.1, 0.0]:
 
+<div class="math-panel">
+
 $$L = -\log(0.6) ≈ 0.511$$
+
+</div>
 
 Lower cross-entropy indicates better predictions. During optimization, gradients flow backward through the network to minimize this loss.
 
@@ -315,6 +474,16 @@ This work demonstrates that deep learning provides an effective, scalable approa
 - **Strong generalization** across multiple particle types and charges
 
 While classical models showed competitive accuracy, their computational demands make them unsuitable for real-time or large-scale deployment. This research highlights the transformative potential of machine learning in experimental physics, accelerating the path from raw detector data to published scientific results.
+
+<div class="thesis-banner">
+  <div>
+    <strong>Read the full thesis</strong><br>
+    <span class="thesis-banner__meta">Complete methods, tables, and discussion — open the PDF directly in your browser.</span>
+  </div>
+  <div class="thesis-cta-row">
+    <a class="thesis-cta" href="{{ '/assets/pdf/Siwakoti_Anupam_GlueX_PID_Thesis.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer">Download PDF</a>
+  </div>
+</div>
 
 ## Tools and Technologies
 

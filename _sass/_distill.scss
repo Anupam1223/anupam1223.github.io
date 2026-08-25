@@ -32,9 +32,24 @@ d-article {
     color: var(--global-text-color) !important;
   }
 
+  // Distill injects `span.katex { color: rgba(0,0,0,0.8) }` — force theme text color
+  // on KaTeX nodes and all descendants so formulas stay readable in dark mode.
   .katex,
-  .katex-display {
+  .katex-display,
+  .katex-html,
+  span.katex,
+  span.katex-display,
+  .katex *,
+  .katex-display *,
+  span.katex *,
+  span.katex-display * {
     color: var(--global-text-color) !important;
+  }
+  .katex svg,
+  .katex-display svg,
+  span.katex svg {
+    fill: var(--global-text-color) !important;
+    stroke: var(--global-text-color) !important;
   }
   h1,
   h2,
@@ -48,6 +63,16 @@ d-article {
     color: var(--global-theme-color) !important;
     &:hover {
       color: var(--global-theme-color) !important;
+    }
+  }
+  // Solid CTA buttons must keep high-contrast label text (theme link color would hide it).
+  a.thesis-cta,
+  a.btn-solid {
+    color: #0b1220 !important;
+    background: var(--global-theme-color) !important;
+    &:hover {
+      color: #0b1220 !important;
+      opacity: 0.92;
     }
   }
   b i {
@@ -113,7 +138,7 @@ d-article {
         display: block;
         outline: none;
         margin-bottom: 0.8em;
-        color: rgba(0, 0, 0, 0.8);
+        color: var(--global-text-color);
         font-weight: bold;
       }
       ul {

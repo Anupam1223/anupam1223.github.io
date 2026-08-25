@@ -120,16 +120,24 @@ html[data-theme="dark"] {
     display: block;
   }
 
-  // Fix KaTeX math formula visibility in dark mode
+  // Fix KaTeX math formula visibility in dark mode (incl. Distill's rgba(0,0,0,0.8))
   .katex,
   .katex-display,
   .katex-html,
   .katex .base,
-  .katex .strut {
+  .katex .strut,
+  span.katex,
+  span.katex-display,
+  .katex *,
+  .katex-display *,
+  span.katex *,
+  span.katex-display * {
     color: var(--global-text-color) !important;
   }
 
-  .katex svg {
+  .katex svg,
+  .katex-display svg,
+  span.katex svg {
     fill: var(--global-text-color) !important;
     stroke: var(--global-text-color) !important;
   }
