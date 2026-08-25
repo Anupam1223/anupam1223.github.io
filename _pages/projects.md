@@ -82,6 +82,19 @@ nav_order: 3
     <button class="project-card__btn" onclick="openProjectModal('pytorch-app')">View Project</button>
   </div>
 
+  <div class="project-card">
+    <div class="project-card__badge">Interactive</div>
+    <div class="project-card__icon">📐</div>
+    <h3 class="project-card__title">Math for Machine Learning</h3>
+    <p class="project-card__desc">An interactive visual walkthrough of the math behind ML — limits, derivatives, gradients, cost functions, probability, Bayes, and normal distributions.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">React</span>
+      <span class="project-tag">Math Viz</span>
+      <span class="project-tag">ML Theory</span>
+    </div>
+    <button class="project-card__btn" onclick="openProjectModal('math-app')">View Project</button>
+  </div>
+
 </div>
 
 <!-- Modal Overlay -->
