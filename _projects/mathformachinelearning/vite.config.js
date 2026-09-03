@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  // Relative base so the built app works when served from /assets/slider-app/
+  // Relative base so the built app works when served from /assets/math-app/
   base: './',
   plugins: [react()],
   root: '.',
