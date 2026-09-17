@@ -78,6 +78,19 @@ nav_order: 3
     <button class="project-card__btn" onclick="openProjectModal('vae-app')">View Project</button>
   </div>
 
+  <div class="project-card">
+    <div class="project-card__badge">Interactive</div>
+    <div class="project-card__icon">🏗️</div>
+    <h3 class="project-card__title">ML Architecture</h3>
+    <p class="project-card__desc">An interactive walkthrough of ML systems architecture — AI compute foundations, on-prem design, cloud platforms, containerization, performance optimization, and cost management.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">React</span>
+      <span class="project-tag">ML Ops</span>
+      <span class="project-tag">Systems</span>
+    </div>
+    <button class="project-card__btn" onclick="openProjectModal('ml-architecture-app')">View Project</button>
+  </div>
+
 </div>
 
 <!-- Modal Overlay -->
