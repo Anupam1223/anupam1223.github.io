@@ -1,0 +1,113 @@
+---
+layout: page
+permalink: /repositories/
+title: Repositories
+description: "Open-source work on GitHub — generative models, interactive ML explainers, and production ML systems."
+nav: true
+nav_order: 4
+---
+
+{% assign gh_user = site.data.repositories.github_users | first %}
+
+<section class="gh-hero" data-username="{{ gh_user }}">
+  <img class="gh-hero__avatar" src="https://github.com/{{ gh_user }}.png" alt="{{ gh_user }} avatar" width="96" height="96">
+  <div class="gh-hero__body">
+    <div class="gh-hero__title-row">
+      <div>
+        <h2 class="gh-hero__name" data-gh="name">{{ gh_user }}</h2>
+        <a class="gh-hero__handle" href="https://github.com/{{ gh_user }}" target="_blank" rel="noopener noreferrer">@{{ gh_user }}</a>
+      </div>
+      <a class="gh-btn gh-btn--solid" href="https://github.com/{{ gh_user }}" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        View GitHub profile
+      </a>
+    </div>
+    <p class="gh-hero__bio" data-gh="bio">ML engineer building generative models, interactive explainers, and production ML systems.</p>
+    <div class="gh-stats">
+      <div class="gh-stat"><span class="gh-stat__value" data-gh="repos">—</span><span class="gh-stat__label">Public repos</span></div>
+      <div class="gh-stat"><span class="gh-stat__value" data-gh="stars">—</span><span class="gh-stat__label">Stars earned</span></div>
+      <div class="gh-stat"><span class="gh-stat__value" data-gh="followers">—</span><span class="gh-stat__label">Followers</span></div>
+      <div class="gh-stat"><span class="gh-stat__value" data-gh="languages">—</span><span class="gh-stat__label">Languages</span></div>
+      <div class="gh-stat"><span class="gh-stat__value" data-gh="pushed">—</span><span class="gh-stat__label">Last push</span></div>
+    </div>
+    <div class="gh-langbar" data-gh="langbar" hidden>
+      <div class="gh-langbar__track"></div>
+      <ul class="gh-langbar__legend"></ul>
+    </div>
+  </div>
+</section>
+
+<section class="gh-chart">
+  <h3 class="gh-section-title">Contribution activity</h3>
+  <div class="gh-chart__frame">
+    <img class="only-light" src="https://ghchart.rshah.org/b509ac/{{ gh_user }}" alt="GitHub contribution chart for {{ gh_user }}" loading="lazy" onerror="this.closest('.gh-chart').hidden = true">
+    <img class="only-dark" src="https://ghchart.rshah.org/2698ba/{{ gh_user }}" alt="GitHub contribution chart for {{ gh_user }}" loading="lazy" onerror="this.closest('.gh-chart').hidden = true">
+  </div>
+</section>
+
+<h2 class="gh-heading">Featured</h2>
+
+{% for group in site.data.repositories.featured %}
+<section class="gh-group">
+  <header class="gh-group__header">
+    <span class="gh-group__icon" aria-hidden="true">{{ group.icon }}</span>
+    <div>
+      <h3 class="gh-group__title">{{ group.category }}</h3>
+      <p class="gh-group__blurb">{{ group.blurb }}</p>
+    </div>
+  </header>
+  <div class="gh-grid">
+    {% for repo in group.repos %}
+    <article class="gh-card gh-card--featured" data-repo="{{ repo.name }}">
+      <div class="gh-card__top">
+        <a class="gh-card__name" href="https://github.com/{{ gh_user }}/{{ repo.name }}" target="_blank" rel="noopener noreferrer">{{ repo.name | replace: '_', '_<wbr>' | replace: '-', '-<wbr>' }}</a>
+        <span class="gh-card__lang" hidden><span class="gh-card__dot"></span><span class="gh-card__lang-text"></span></span>
+      </div>
+      <p class="gh-card__desc">{{ repo.description }}</p>
+      <div class="gh-card__tags">
+        {% for tag in repo.tags %}<span class="gh-tag">{{ tag }}</span>{% endfor %}
+      </div>
+      <footer class="gh-card__footer">
+        <span class="gh-card__meta">
+          <span class="gh-card__stat" title="Stars"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/></svg><span data-field="stars">·</span></span>
+          <span class="gh-card__updated" data-field="updated"></span>
+        </span>
+        <span class="gh-card__actions">
+          {% if repo.demo %}<a class="gh-btn gh-btn--solid gh-btn--sm" href="{{ '/assets/' | append: repo.demo | append: '/index.html' | relative_url }}" target="_blank" rel="noopener noreferrer">{{ repo.demo_label | default: 'Live demo' }}</a>{% endif %}
+          <a class="gh-btn gh-btn--ghost gh-btn--sm" href="https://github.com/{{ gh_user }}/{{ repo.name }}" target="_blank" rel="noopener noreferrer">Code</a>
+        </span>
+      </footer>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endfor %}
+
+<section class="gh-more">
+  <div class="gh-more__header">
+    <div>
+      <h2 class="gh-heading">More on GitHub <span class="gh-count" data-gh="more-count"></span></h2>
+      <p class="gh-group__blurb">Pulled live from GitHub — new repositories show up here automatically.</p>
+    </div>
+    <div class="gh-controls">
+      <input class="gh-search" type="search" placeholder="Search repositories…" aria-label="Search repositories">
+      <select class="gh-sort" aria-label="Sort repositories">
+        <option value="updated">Recently updated</option>
+        <option value="stars">Most stars</option>
+        <option value="name">Name</option>
+      </select>
+    </div>
+  </div>
+  <div class="gh-filters" role="group" aria-label="Filter by language"></div>
+  <div class="gh-grid gh-grid--compact" data-gh="more-grid">
+    <p class="gh-empty">Loading repositories…</p>
+  </div>
+</section>
+
+<script>
+  window.GH_REPOS_CONFIG = {
+    username: {{ gh_user | jsonify }},
+    featured: {{ site.data.repositories.featured | map: 'repos' | jsonify }}
+  };
+</script>
+<script src="{{ '/assets/js/repositories.js' | relative_url | bust_file_cache }}"></script>

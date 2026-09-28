@@ -3,33 +3,73 @@ github_users:
 
 repo_description_lines_max: 2
 
-github_repos:
-  - Anupam1223/Genesis
-  - Anupam1223/pytorch_learn
-  - Anupam1223/normalizing_flow_react_slider
-  - Anupam1223/anupam1223.github.io
-  - Anupam1223/mps_anamoly_tep
-  - Anupam1223/mps-trade-analysis
-  - Anupam1223/mps-mnist-classifier
-  - Anupam1223/ml_pipeline
-  - Anupam1223/ml_fastapi
-  - Anupam1223/MLOPs-Certificates
-  - Anupam1223/codolytics
-  - Anupam1223/ecomm_demo
-  - Anupam1223/demo_GUI_C-
-  - Anupam1223/Data_Mart_Design_for_Police_Crime_Reporting_System
-  - Anupam1223/emperical_research_on_software_architectures
-  - Anupam1223/twilio_practise
-  - Anupam1223/GraphqlBasics
-  - Anupam1223/Foodwagon
-  - Anupam1223/formsUserCRUD
-  - Anupam1223/DynamicUserCrud
-  - Anupam1223/StaticUserCrud-
-  - Anupam1223/django-frontend
-  - Anupam1223/project_admin_user
-  - Anupam1223/SqlSecurityWithRouter
-  - Anupam1223/SqlSecurity
-  - Anupam1223/SimpleLogin
-  - Anupam1223/SQL
-  - Anupam1223/Authentication
-  - Anupam1223/Dependency
+# Curated repos shown in the "Featured" section of /repositories/.
+# Everything else on the GitHub profile is pulled live into "More on GitHub".
+# `demo` is an app folder under /assets/ (e.g. vae-app -> /assets/vae-app/index.html).
+featured:
+  - category: Generative Modeling & Research
+    icon: 🧬
+    blurb: Probabilistic models for industrial systems, audio, and latent-variable research.
+    repos:
+      - name: Genesis
+        description: Physics-informed stochastic MPC using conditional neural spline flows to model the full distribution of 4-hour trajectories on industrial SCADA pipelines — the likely outcome and its risk.
+        tags: [Normalizing Flows, PyTorch, SCADA, Functional PCA]
+        demo: genesis-app
+        demo_label: Docs
+      - name: sound_generation
+        description: Generative audio pipeline pairing convolutional VAEs with normalizing flows to map raw audio into a smooth latent space and sample new vocal and musical variations.
+        tags: [VAE, Normalizing Flows, Audio ML]
+        demo: sound-generation-app
+        demo_label: Docs
+      - name: implementing-vae
+        description: Research implementations of VAE encoder and decoder techniques, evolving the architecture paper by paper.
+        tags: [VAE, PyTorch, Research]
+
+  - category: Interactive Explainers
+    icon: 🎓
+    blurb: Slide-by-slide React visualizations that teach ML theory and systems.
+    repos:
+      - name: MLArchitecture
+        description: Interactive deck on ML systems architecture — AI compute foundations, on-prem design, cloud platforms, containers and orchestration, performance tuning, and cost management.
+        tags: [React, MLOps, Systems]
+        demo: ml-architecture-app
+      - name: vae
+        description: A 25-topic interactive explainer on variational autoencoders, from the ELBO and reparameterization to β-VAE, VQ-VAE, IWAE, and amortized inference.
+        tags: [React, VAE, ML Theory]
+        demo: vae-app
+      - name: normalizing_flow_react_slider
+        description: Interactive slider that builds intuition for normalizing flows — bijective transforms, change of variables, and density estimation.
+        tags: [React, Math Viz, ML Theory]
+        demo: slider-app
+      - name: pytorch_learn
+        description: PyTorch fundamentals monorepo — an interactive theory slider plus hands-on scripts for tensors, autograd, modules, and training loops.
+        tags: [React, PyTorch, Deep Learning]
+        demo: pytorch-app
+
+  - category: Production ML & Backend
+    icon: ⚙️
+    blurb: Services and pipelines built to run models reliably in production.
+    repos:
+      - name: ml_fastapi
+        description: Real-time anomaly detection on streaming time-series — FastAPI REST and WebSocket endpoints, automatic training, Redis model caching, and Kafka ingestion.
+        tags: [FastAPI, Redis, Kafka, Docker]
+      - name: ml_pipeline
+        description: Modular, extensible ML pipeline built on PyTorch, scikit-learn, and Optuna for reproducible data handling, training, tuning, and deployment.
+        tags: [PyTorch, scikit-learn, Optuna]
+      - name: codolytics
+        description: Backend for a developer-analytics platform that mines Git activity, running as Dockerized Python services managed with Poetry.
+        tags: [Python, Docker, Analytics]
+
+  - category: Tensor Networks
+    icon: ⚛️
+    blurb: Matrix Product State models borrowed from quantum physics, applied to ML.
+    repos:
+      - name: mps-trade-analysis
+        description: Matrix Product State tensor-network model that predicts directional stock moves from Alpaca market data, built with TensorFlow and TensorNetwork.
+        tags: [MPS, TensorFlow, Finance]
+      - name: mps-mnist-classifier
+        description: Contractive MPS tensor-network classifier for MNIST with soft-binary input encoding and AMP-accelerated GPU training.
+        tags: [MPS, PyTorch, Computer Vision]
+      - name: mps_anamoly_tep
+        description: Tensor-network (MPS) anomaly detection on the Tennessee Eastman Process industrial benchmark.
+        tags: [MPS, Anomaly Detection, Process Control]
