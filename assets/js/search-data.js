@@ -25,7 +25,7 @@ ninja.data = [{
           },
         },{id: "nav-repositories",
           title: "Repositories",
-          description: "A collection of my open-source projects and repositories on GitHub.",
+          description: "Open-source work on GitHub — generative models, interactive ML explainers, and production ML systems.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/repositories/";
