@@ -91,6 +91,19 @@ nav_order: 3
     <button class="project-card__btn" onclick="openProjectModal('ml-architecture-app')">View Project</button>
   </div>
 
+  <div class="project-card">
+    <div class="project-card__badge">Interactive</div>
+    <div class="project-card__icon">⚡</div>
+    <h3 class="project-card__title">ML FastAPI</h3>
+    <p class="project-card__desc">An interactive walkthrough of serving ML models with FastAPI — API fundamentals, Pydantic validation, model serialization, testing, async performance, and containerized deployment.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">React</span>
+      <span class="project-tag">FastAPI</span>
+      <span class="project-tag">ML Serving</span>
+    </div>
+    <button class="project-card__btn" onclick="openProjectModal('ml-fastapi-app')">View Project</button>
+  </div>
+
 </div>
 
 <!-- Modal Overlay -->

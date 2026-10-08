@@ -184,6 +184,8 @@ exclude:
   - _projects/mathformachinelearning/dist
   - _projects/MLArchitecture/node_modules
   - _projects/MLArchitecture/dist
+  - _projects/MLFastAPI/node_modules
+  - _projects/MLFastAPI/dist
   - CONTRIBUTING.md
   - CUSTOMIZE.md
   - Dockerfile
