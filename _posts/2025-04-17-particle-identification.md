@@ -1,14 +1,14 @@
 ---
 layout: distill
 title: Deep Learning-Based Particle Identification In The Glue-X Experiment
-description: A comprehensive study on applying deep learning and hyperparameter optimization for particle classification in nuclear physics
-tags: deep-learning particle-physics neural-networks machine-learning
+description: M.S. thesis summary — MLP-based PID for GlueX charged tracks, with validation/test results, confusion matrices, and comparison to Random Forest.
+tags: deep-learning particle-physics neural-networks machine-learning jefferson-lab gluex
 giscus_comments: true
 date: 2025-04-17
 featured: true
+thumbnail: assets/img/gluex-pid/fig4-3-test-confusion.png
 mermaid:
   enabled: false
-  zoomable: false
 code_diff: false
 map: false
 chart:
@@ -23,7 +23,7 @@ authors:
   - name: Anupam Siwakoti
     url: "https://github.com/anupam1223"
     affiliations:
-      name: Lamar University, Master of Science in Computer Science
+      name: Lamar University, M.S. Computer Science
   - name: Dr. Jing Zhang
     affiliations:
       name: Lamar University (Supervisor)
@@ -35,20 +35,13 @@ authors:
       name: Jefferson Laboratory (Co-Advisor)
 
 toc:
-  - name: Introduction
-  - name: Challenges in Particle Identification
-  - name: Research Objectives
-  - name: Background
-  - name: Methodology
-    subsections:
-      - name: Data Loading and Preprocessing
-      - name: Feature Engineering
-      - name: Neural Network Architecture
-      - name: Model Evaluation
+  - name: Overview
+  - name: Problem Setting
+  - name: Method
   - name: Results
-  - name: Limitations and Future Work
+  - name: Discussion
+  - name: Limitations and Outlook
   - name: Conclusion
-  - name: References
 
 _styles: >
   .thesis-banner {
@@ -107,7 +100,7 @@ _styles: >
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 0.85rem;
-    margin: 0 0 2rem;
+    margin: 0 0 1.75rem;
   }
   .result-pill {
     background: var(--global-card-bg-color);
@@ -118,7 +111,7 @@ _styles: >
   }
   .result-pill__value {
     display: block;
-    font-size: 1.65rem;
+    font-size: 1.55rem;
     font-weight: 800;
     color: var(--global-theme-color);
     line-height: 1.2;
@@ -126,7 +119,7 @@ _styles: >
   .result-pill__label {
     display: block;
     margin-top: 0.35rem;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     letter-spacing: 0.02em;
     color: var(--global-text-color-light);
   }
@@ -135,7 +128,7 @@ _styles: >
     border: 1px solid var(--global-divider-color);
     border-radius: 10px;
     padding: 1rem 1.2rem;
-    margin: 1.25rem 0;
+    margin: 1.25rem 0 1.75rem;
   }
   .callout strong {
     color: var(--global-theme-color);
@@ -145,7 +138,7 @@ _styles: >
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
-    margin: 1rem 0 1.75rem;
+    margin: 0.75rem 0 1.5rem;
   }
   .pipeline__step {
     background: var(--global-card-bg-color);
@@ -160,7 +153,35 @@ _styles: >
     color: var(--global-theme-color);
     font-weight: 700;
   }
-  /* Distill hard-codes near-black KaTeX; force theme text + panel chrome */
+  .thesis-figure {
+    margin: 1.25rem 0 0.35rem;
+    text-align: center;
+  }
+  .thesis-figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--global-divider-color);
+    background: #fff;
+  }
+  .thesis-caption {
+    font-size: 0.85rem;
+    color: var(--global-text-color-light);
+    margin: 0.4rem 0 1.5rem;
+    text-align: left;
+  }
+  .figure-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0 0.25rem;
+  }
+  .figure-grid .thesis-figure {
+    margin: 0;
+  }
+  .figure-grid .thesis-caption {
+    margin-bottom: 0.5rem;
+  }
   d-article span.katex,
   d-article span.katex *,
   d-article .katex,
@@ -179,6 +200,10 @@ _styles: >
     margin: 0.85rem 0 1.25rem;
     overflow-x: auto;
   }
+  d-article table {
+    width: 100%;
+    font-size: 0.92rem;
+  }
 ---
 
 <div class="thesis-banner">
@@ -192,354 +217,179 @@ _styles: >
   </div>
 </div>
 
+## Overview
+
+This post summarizes my M.S. thesis on deep-learning particle identification (PID) for the GlueX experiment at Jefferson Lab. The full document covers literature, architecture choices, training diagnostics, and ablations; here I focus on the scientific setting, method, and quantitative results.
+
 <div class="result-strip">
   <div class="result-pill">
     <span class="result-pill__value">93%</span>
-    <span class="result-pill__label">Test accuracy (unseen)</span>
+    <span class="result-pill__label">Test micro F1<br>(K⁺, μ⁺, p, e⁺)</span>
   </div>
   <div class="result-pill">
-    <span class="result-pill__value">5</span>
-    <span class="result-pill__label">Particle classes</span>
+    <span class="result-pill__value">98%</span>
+    <span class="result-pill__label">Best class recall<br>(e⁺ on validation)</span>
   </div>
   <div class="result-pill">
-    <span class="result-pill__value">Optuna</span>
-    <span class="result-pill__label">Hyperparameter search</span>
+    <span class="result-pill__value">~95%</span>
+    <span class="result-pill__label">Validation accuracy<br>after ~2k epochs</span>
   </div>
   <div class="result-pill">
-    <span class="result-pill__value">PyTorch</span>
-    <span class="result-pill__label">Training &amp; deployment</span>
+    <span class="result-pill__value">&gt;20 GB</span>
+    <span class="result-pill__label">RF model size<br>(vs compact MLP)</span>
   </div>
 </div>
-
-## Introduction
-
-The Glue-X experiment at Jefferson Laboratory (JLAB Hall D) plays a crucial role in exploring Quantum Chromodynamics (QCD) through particle physics research. This experiment produces a photon beam with energies ranging from 6 to 11.7 GeV using the Bremsstrahlung technique, creating conditions to study exotic particles and fundamental interactions.
-
-This thesis builds a practical deep-learning pipeline for particle identification (PID) on GlueX detector data — comparing neural networks with classical baselines, tuning models with Optuna, and packaging a reproducible workflow physicists can run end-to-end.
 
 <div class="callout">
-  <strong>At a glance.</strong> Detector hits → cleaned features → optimized DNN → calibrated class probabilities for e±, μ±, π±, p±, and K±.
+  <strong>Takeaway.</strong> A PyTorch MLP trained on Monte Carlo GlueX tracks reaches strong PID performance for K⁺, μ⁺, p, and e⁺ on held-out test data (micro-averaged F1 = 0.93). Including π⁺ exposes a hard separation problem that momentum-binned cuts partially mitigate. Random Forest can match or slightly exceed accuracy, but at impractical memory cost for deployment.
 </div>
+
+## Problem Setting
+
+GlueX (JLab Hall D) studies QCD with a tagged photon beam (≈ 6–11.7 GeV) and wide charged-track coverage (polar angles ≈ 1°–120°). Reliable PID of e±, μ±, π±, K±, and protons is required before reconstructing final states; hand-tuned cuts scale poorly with data volume and struggle with combinatorial background and cross-contamination.
+
+This work targets a practical classifier that:
+
+1. Learns from simulated Monte Carlo tracks rather than brittle cut menus
+2. Reports class-wise precision / recall / F1 with confusion matrices
+3. Remains small enough for large-scale or iterative analysis, unlike multi-GB ensembles
+
+## Method
 
 <div class="pipeline">
-  <span class="pipeline__step">ROOT / CSV / JSON</span>
+  <span class="pipeline__step">ROOT / MC tracks</span>
   <span class="pipeline__arrow">→</span>
-  <span class="pipeline__step">Clean &amp; Encode</span>
+  <span class="pipeline__step">Clean &amp; normalize</span>
   <span class="pipeline__arrow">→</span>
-  <span class="pipeline__step">Physics Features</span>
+  <span class="pipeline__step">Feature selection</span>
   <span class="pipeline__arrow">→</span>
-  <span class="pipeline__step">Normalize</span>
+  <span class="pipeline__step">MLP (ReLU → Softmax)</span>
   <span class="pipeline__arrow">→</span>
-  <span class="pipeline__step">DNN + Softmax</span>
-  <span class="pipeline__arrow">→</span>
-  <span class="pipeline__step">Optuna Tuning</span>
-  <span class="pipeline__arrow">→</span>
-  <span class="pipeline__step">Held-out Eval</span>
+  <span class="pipeline__step">Metrics &amp; matrices</span>
 </div>
 
-### About Glue-X
+<figure class="thesis-figure">
+  <img src="{{ '/assets/img/gluex-pid/fig3-1-pipeline.png' | relative_url }}" alt="Model training pipeline from configuration through preprocessing, network training, and analysis">
+</figure>
+<p class="thesis-caption"><strong>Figure 3.1.</strong> End-to-end training pipeline used in the thesis: configuration, data loading / preprocessing, network training, and post-training visualization.</p>
 
-The Glue-X experiment generates high-energy photon beams with the following specifications:
+**Data.** Charged-particle Monte Carlo samples covering the GlueX polar-angle acceptance. Rows with NaN / Inf are removed; features are normalized; highly collinear calorimeter / CDC-derived variables are pruned after correlation analysis. Labels encode particle species (e.g. K⁺, p, π⁺, e⁺, μ⁺). Train / test split is 70 / 30 with the test set held out for final reporting.
 
-- **Energy Range**: 6 to 11.7 GeV
-- **Momentum**: 50 MeV
-- **Angular Coverage**: 1° to 120°
-- **Tracked Particles**: e±, μ±, π±, p±, K±
+<figure class="thesis-figure">
+  <img src="{{ '/assets/img/gluex-pid/fig3-5-correlation.png' | relative_url }}" alt="Feature correlation heatmap after mitigating multicollinearity">
+</figure>
+<p class="thesis-caption"><strong>Figure 3.5.</strong> Correlation structure after removing highly redundant features — used to stabilize training and reduce noise.</p>
 
-The detector system records particle interactions across multiple subsystems, producing approximately 2 penta-bytes of data over 100 days of operation. Each recorded event contains complex multi-dimensional information that must be processed and classified.
+**Model.** Multi-layer perceptron in PyTorch with ReLU hidden units, Softmax outputs, Kaiming initialization, Adam, mini-batches of 2048, and categorical cross-entropy. Gradient norms are monitored across layers during training. Hyperparameters are tuned for the GlueX feature space (depth, width, dropout, learning rate). Training ran on JLab HPC (`ifarm2402`: dual AMD EPYC 9554, 1.5 TiB RAM).
 
-## Challenges in Particle Identification
-
-Traditional particle identification methods in nuclear physics face several critical limitations:
-
-- **Labor-Intensive Tuning**: Expert-driven methods rely on manual parameter tuning, which is susceptible to human error and subjective biases
-- **Interpretability Issues**: Difficult to trace misclassifications due to complex inter-feature correlations
-- **Deployment Challenges**: Context-dependent methods that struggle to generalize across different experimental conditions
-- **Time Delays**: Manual analysis significantly prolongs the time from data collection to publication, delaying scientific insights
-
-## Research Objectives
-
-This research addresses these challenges through three primary objectives:
-
-1. **Comparative Study**: Evaluate deep learning models against classical machine learning approaches (e.g., Random Forests) for particle identification
-2. **Hyperparameter Optimization**: Implement advanced optimization techniques using Optuna to fine-tune neural network parameters
-3. **Feature Analysis**: Investigate how input features influence model performance and identify the most discriminative features for particle classification
-4. **Practical Pipeline**: Develop a plug-and-play pipeline for physicists to run particle identification experiments independently
-
-## Background
-
-### Why Machine Learning for Particle Identification?
-
-Machine learning offers significant advantages over traditional hand-cut methods:
-
-- **Flexibility**: Neural networks can learn complex, non-linear relationships between features that rule-based systems miss
-- **Accuracy**: Achieves high classification accuracy while maintaining interpretability through proper analysis
-- **Speed**: Dramatically reduces prediction time on large datasets—millions of data points in seconds
-- **Scalability**: Computational requirements scale efficiently with modern GPU infrastructure
-- **Exploratory Power**: ML models provide insights into particle behavior and dataset properties that human analysis might overlook
-
-### Detector Data Features
-
-The Glue-X detector system provides three primary categories of features:
-
-1. **Ionization Features** (dE/dx vs. momentum): Energy loss per unit distance recorded in the Central Drift Chamber (CDC), which varies predictably with particle type
-2. **Calorimeter Ratios**: Ratio of energy deposited in the forward (FCAL) or barrel (BCAL) calorimeters to the CDC signal
-3. **Combined Features**: Derived features combining CDC and calorimeter information for enhanced discrimination
-
-## Methodology
-
-### Data Loading and Preprocessing
-
-The pipeline supports multiple input formats: JSON, ROOT (native particle physics format), and CSV files.
-
-**Data Split Strategy**:
-- 70% training data
-- 30% test data (completely independent for unbiased evaluation)
-
-**Data Cleaning**:
-- Rows containing NaN (missing) or Inf (infinite) values are removed
-- This ensures clean, consistent input critical for reliable training and reproducible results
-
-**Label Encoding**:
-
-| Particle | Code |
-| -------- | ---- |
-| K⁺       | 0    |
-| p⁺       | 1    |
-| π⁺       | 2    |
-| e⁺       | 3    |
-| μ⁺       | 4    |
-
-All data is transformed into PyTorch tensors with random uniform weight initialization to support weighted loss calculations.
-
-### Feature Engineering
-
-Feature engineering improved model accuracy dramatically—from 80% to 94% in some classification tasks.
-
-**Physics-Motivated Cuts**:
-Applied cut-based analysis with thresholds between 0.25 and 1.25 on the benchmark `trk_e_p` variable, filtering events based on established physics principles.
-
-**Feature Normalization**:
-All features are normalized to ensure:
-- Balanced impact across the network
-- Faster convergence during training
-- Prevention of large-scale features from dominating network weights
-
-**Multicollinearity Analysis**:
-Highly correlated features were identified and removed:
-- `trk_fcal_dx_min`, `trk_fcal_dy_min`, `trk_fcal_e`, `trk_fcal_t`, `trk_Nblk`
-
-This reduces model complexity and prevents redundant information from introducing noise.
-
-### Neural Network Architecture
-
-**Activation Function: ReLU**
-
-$$
-f(x) = \max(0, x)
-$$
-
-ReLU was chosen over alternatives like Sigmoid or Tanh because it:
-- Preserves strong activations and zeros out irrelevant ones
-- Enables faster convergence during training—critical for extensive hyperparameter optimization
-- Mitigates vanishing gradient problems in deep networks
-
-**Layer Configuration**:
-
-Each layer transforms its input through learned parameters, capturing hierarchical features as data flows through the network. The architecture includes dropout layers for regularization and batch normalization for training stability.
-
-**Output Layer: Softmax**
-
-The softmax function converts raw network outputs (logits) into a probability distribution:
-
-$$
-\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}
-$$
-
-**Example**: For a 5-class particle identification problem with logits [0, 1, 2.0, 0, 1]:
-
-$$
-e^0 = 1, \quad e^1 \approx 2.718, \quad e^{2.0} \approx 7.389
-$$
-
-$$
-\text{Sum} = 1 + 2.718 + 7.389 + 1 + 2.718 = 14.825
-$$
-
-$$
-P(\text{class 1}) = 2.718 / 14.825 \approx 0.183
-$$
-
-### Loss Function: Categorical Cross-Entropy
-
-Cross-entropy measures how close predicted probabilities are to true class labels:
-
-$$
-L = -\sum_i y_i \log(\hat{y}_i)
-$$
-
-For a true label [0, 0, 1, 0, 0] with predicted probabilities [0.1, 0.2, 0.6, 0.1, 0.0]:
-
-$$
-L = -\log(0.6) \approx 0.511
-$$
-
-
-Lower cross-entropy indicates better predictions. During optimization, gradients flow backward through the network to minimize this loss.
-
-### Model Monitoring
-
-During training, gradients for each layer $$i$$ ($$\nabla W_i$$) are continuously monitored for:
-
-- **Vanishing Gradients**: Values very close to 0 prevent lower layers from learning effectively
-- **Exploding Gradients**: Excessively large gradients destabilize training
-- **Healthy Training**: A consistent ratio close to 1.0 indicates stable learning
-
-### Hyperparameter Optimization
-
-Optuna enables efficient exploration of the hyperparameter space, systematically testing different configurations:
-
-- Learning rate
-- Number of layers
-- Hidden unit counts
-- Dropout rates
-- Batch sizes
-- Activation function choices
-
-This automated approach identifies optimal parameter combinations that maximize model performance without manual trial-and-error.
+<figure class="thesis-figure">
+  <img src="{{ '/assets/img/gluex-pid/fig3-6-architecture.png' | relative_url }}" alt="Neural network architecture with ReLU hidden layers and Softmax output">
+</figure>
+<p class="thesis-caption"><strong>Figure 3.6.</strong> Network schematic: dense ReLU stack with Softmax classification over particle species.</p>
 
 ## Results
 
-### Validation Performance (Positive Particles)
+### Training dynamics
 
-| Class   | Precision | Recall | F1-Score |
-| ------- | --------- | ------ | -------- |
-| K⁺      | 0.63      | 0.92   | 0.75     |
-| μ⁺      | 0.66      | 0.95   | 0.78     |
-| p⁺      | 0.94      | 0.96   | 0.95     |
-| e⁺      | 0.93      | 0.99   | 0.96     |
-| **Micro Avg** | **0.77** | **0.96** | **0.85** |
-| **Macro Avg** | **0.79** | **0.95** | **0.86** |
+Loss and accuracy on the primary positive-particle configuration converge quickly and remain closely matched between training and validation over 2000 epochs (~95% validation accuracy), indicating stable optimization without severe overfitting.
 
-### Test Performance (Positive Particles, Unseen Data)
+<figure class="thesis-figure">
+  <img src="{{ '/assets/img/gluex-pid/fig4-1-training-curves.png' | relative_url }}" alt="Training and validation loss and accuracy over 2000 epochs">
+</figure>
+<p class="thesis-caption"><strong>Figure 4.1.</strong> Training vs. validation loss (left) and accuracy (right) over 2000 epochs.</p>
 
-| Class   | Precision | Recall | F1-Score |
-| ------- | --------- | ------ | -------- |
-| K⁺      | 0.88      | 0.85   | 0.87     |
-| μ⁺      | 0.90      | 0.98   | 0.94     |
-| p⁺      | 0.97      | 0.88   | 0.92     |
-| e⁺      | 0.96      | 0.98   | 0.97     |
-| **Micro Avg** | **0.93** | **0.93** | **0.93** |
-| **Macro Avg** | **0.93** | **0.92** | **0.92** |
+### Positive particles — validation
 
-The model generalizes well to completely unseen test data, achieving 93% overall accuracy.
+On the validation set (K⁺, μ⁺, p, e⁺), diagonal dominance is clear: K⁺ 91.66%, μ⁺ 95.45%, p 96.05%, e⁺ 98.81% correct. Residual confusion is concentrated between K⁺ and μ⁺.
 
-### Negative Particle Performance
+| Class | Precision | Recall | F1 |
+| --- | ---: | ---: | ---: |
+| K⁺ | 0.63 | 0.92 | 0.75 |
+| μ⁺ | 0.66 | 0.95 | 0.78 |
+| p | 0.94 | 0.96 | 0.95 |
+| e⁺ | 0.93 | 0.99 | 0.96 |
+| Micro avg | 0.77 | 0.96 | 0.85 |
+| Macro avg | 0.79 | 0.95 | 0.86 |
 
-The model also demonstrated strong performance on negatively charged particles:
+<figure class="thesis-figure">
+  <img src="{{ '/assets/img/gluex-pid/fig4-2-val-confusion.png' | relative_url }}" alt="Validation confusion matrix for positive particles">
+</figure>
+<p class="thesis-caption"><strong>Figure 4.2.</strong> Validation confusion matrix (%), positive combined charged sample at the studied kinematics / angle setting.</p>
 
-| Class   | Precision | Recall | F1-Score |
-| ------- | --------- | ------ | -------- |
-| K⁻      | 0.82      | 0.80   | 0.81     |
-| μ⁻      | 0.77      | 0.91   | 0.83     |
-| p⁻      | 0.91      | 0.91   | 0.91     |
-| π⁻      | 0.78      | 0.62   | 0.69     |
-| e⁻      | 0.95      | 0.97   | 0.96     |
-| **Micro Avg** | **0.85** | **0.85** | **0.85** |
+### Positive particles — held-out test
 
-### Key Findings
+Test performance is consistent with validation and is the headline number for generalization: micro-averaged precision / recall / F1 = **0.93**. Class-wise F1 ranges from 0.87 (K⁺) to 0.97 (e⁺).
 
-1. **Performance Improvement Through Processing**: Progressive refinement—data cleaning, feature engineering, and normalization—steadily improved model performance
-2. **Pion Classification Challenge**: When π⁺ (pion) was included in classification, overall performance decreased. Analysis suggests that distinguishing features between pions and other particle types are not sufficiently well-defined in the current feature set
-3. **Dropout Effectiveness**: Introducing dropout layers and adjusting batch/epoch sizes smoothed out noisy training fluctuations, resulting in more stable performance
+| Class | Precision | Recall | F1 |
+| --- | ---: | ---: | ---: |
+| K⁺ | 0.88 | 0.85 | 0.87 |
+| μ⁺ | 0.90 | 0.98 | 0.94 |
+| p | 0.97 | 0.88 | 0.92 |
+| e⁺ | 0.96 | 0.98 | 0.97 |
+| Micro avg | 0.93 | 0.93 | 0.93 |
+| Macro avg | 0.93 | 0.92 | 0.92 |
 
-### Comparison with Classical ML
+<figure class="thesis-figure">
+  <img src="{{ '/assets/img/gluex-pid/fig4-3-test-confusion.png' | relative_url }}" alt="Test confusion matrix for positive particles">
+</figure>
+<p class="thesis-caption"><strong>Figure 4.3.</strong> Test confusion matrix (%). K⁺ is the hardest class (~85% correct); e⁺ and μ⁺ remain above 97%.</p>
 
-**Random Forest Results**:
-- Achieved competitive accuracy similar to neural networks
-- **Critical Limitations**:
-  - Required ~50 GB model size
-  - Training time: ~32 hours
-  - Massive memory requirements
-  - Impractical for real-time or large-scale deployment
+### Including π⁺
 
-Neural networks proved vastly more efficient for production environments.
+Adding π⁺ degrades overall PID: in the five-class matrices, π⁺ is frequently confused with μ⁺ (~20–22%) and K⁺. Momentum-binned cuts (0.25–1, 1–2, 2–3, 3–5 GeV/c) improve μ⁺ separation and reduce some K⁺ errors, but π⁺ remains the limiting species — consistent with overlapping detector signatures in the current feature set.
 
-## Limitations and Future Work
-
-### Current Limitations
-
-1. **Optimizer Scope**: Only Adam optimizer was explored; combinations with SGD or adaptive scheduling could yield better results
-2. **Angular Generalization**: Models were limited to specific angle degree ranges; broader architectures are needed for full-range angular coverage
-3. **Feature Set**: Current features may not optimally discriminate certain particle pairs (e.g., pions)
-
-### Future Directions
-
-- Explore ensemble methods combining multiple model architectures
-- Implement advanced optimization strategies (learning rate scheduling, cyclical learning rates)
-- Develop angle-independent models for broader experimental applicability
-- Investigate additional feature engineering approaches
-- Apply techniques like SHAP values for enhanced model interpretability
-
-## Conclusion
-
-This work demonstrates that deep learning provides an effective, scalable approach to particle classification in GlueX data. Key achievements include:
-
-- **93% accuracy** on unseen test data for positive particle identification
-- **Efficient deployment** compared to classical ML methods like Random Forests
-- **Reproducible methodology** hosted on GitHub with plug-and-play pipeline design
-- **Strong generalization** across multiple particle types and charges
-
-While classical models showed competitive accuracy, their computational demands make them unsuitable for real-time or large-scale deployment. This research highlights the transformative potential of machine learning in experimental physics, accelerating the path from raw detector data to published scientific results.
-
-<div class="thesis-banner">
+<div class="figure-grid">
   <div>
-    <strong>Read the full thesis</strong><br>
-    <span class="thesis-banner__meta">Complete methods, tables, and discussion — open the PDF directly in your browser.</span>
+    <figure class="thesis-figure">
+      <img src="{{ '/assets/img/gluex-pid/fig4-4-pion-confusion.png' | relative_url }}" alt="Confusion matrix after including the pion class with data cuts">
+    </figure>
+    <p class="thesis-caption"><strong>Figure 4.4.</strong> Training / validation matrix after including π⁺ and applying momentum cuts.</p>
   </div>
-  <div class="thesis-cta-row">
-    <a class="thesis-cta" href="{{ '/assets/pdf/Siwakoti_Anupam_GlueX_PID_Thesis.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer">Download PDF</a>
+  <div>
+    <figure class="thesis-figure">
+      <img src="{{ '/assets/img/gluex-pid/fig4-5-random-forest.png' | relative_url }}" alt="Random Forest confusion matrix on the same five-class setting">
+    </figure>
+    <p class="thesis-caption"><strong>Figure 4.5.</strong> Random Forest on a comparable setting — competitive accuracy, still weak on π⁺.</p>
   </div>
 </div>
 
-## Tools and Technologies
+### Baseline: Random Forest
 
-**Deep Learning Framework**:
-- PyTorch: Model training and deployment
+A Random Forest with tens of estimators can slightly outperform the MLP on some splits, but the fitted ensemble exceeds ~20 GB and is unsuitable for iterative or resource-constrained analysis. The MLP remains the practical operating point: near-competitive accuracy at a fraction of the memory footprint.
 
-**Data Processing**:
-- Pandas & NumPy: Data manipulation
-- Uproot: ROOT file parsing
+## Discussion
 
-**Visualization**:
-- Matplotlib: Performance visualization
+- **What works.** For the four-class positive sample, Softmax MLP + careful preprocessing yields stable training and strong held-out F1 (0.93), with e⁺ / μ⁺ nearly saturated and protons strong.
+- **Where it fails.** π⁺–μ⁺–K⁺ confusion dominates when pions are included; features that cleanly separate those species are under-expressed in the current inputs.
+- **Angle specialization.** Models were trained and evaluated within specific polar-angle settings. A single angle-invariant model remains an open engineering goal and likely needs multi-angle training plus invariant or adapted features.
+- **Deployment criterion.** Accuracy alone is insufficient: Random Forest’s memory cost rules it out for this workflow despite competitive scores.
 
-**Optimization**:
-- Optuna: Hyperparameter optimization
+## Limitations and Outlook
 
-**Hardware**:
-- Dual AMD EPYC 9554 processors (128 cores, 256 threads)
-- 1.5 TiB RAM (787 GiB dedicated to buffer/cache)
-- NVIDIA T4 GPUs via JLAB HPC cluster (SLURM-managed)
+1. Optimizer search was limited primarily to Adam; SGD hybrids, schedules, or cyclical rates may further stabilize late training.
+2. Angle-specific models do not yet cover the full 1°–120° acceptance in one network.
+3. Feature design for π⁺ discrimination needs deeper physics-motivated engineering (and possibly richer detector variables).
+4. Natural next steps: multi-angle datasets, domain adaptation / invariant features, modest ensembles of compact nets, and interpretability (e.g. SHAP) aligned with detector observables.
 
-## References
+## Conclusion
 
-### Papers on ML Applications in Physics
+Deep learning provides a scalable PID path for GlueX Monte Carlo tracks: a compact MLP reaches **93% micro-averaged F1** on held-out positive particles, far more deployable than a multi-GB Random Forest, while π⁺ inclusion marks the main physics/ML bottleneck. The thesis PDF below contains the full methodology, diagnostics, and tables.
 
-- Palo & Molzon (2024). "Neural network applications to improve drift chamber..." *Nuclear Instruments and Methods in Physics Research*. DOI: 10.1016/j.nima.2024.169404
-- Zhou et al. (2023). "Exploring QCD matter in extreme conditions with ML." *Progress in Particle and Nuclear Physics*. DOI: 10.1016/j.ppnp.2023.104084
-- He et al. (2024). "ML for double-Λ hypernuclear events in emulsions." *Nuclear Instruments and Methods*. DOI: 10.1016/j.nima.2024.170196
-- Yang et al. (2023). "Neural Networks for orienting heavy-ion collision events." *Physics Letters B*. DOI: 10.1016/j.physletb.2023.138359
+<div class="thesis-banner">
+  <div>
+    <strong>Full thesis</strong><br>
+    <span class="thesis-banner__meta">Methods, tables, and appendices · May 2025</span>
+  </div>
+  <div class="thesis-cta-row">
+    <a class="thesis-cta" href="{{ '/assets/pdf/Siwakoti_Anupam_GlueX_PID_Thesis.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer">Download PDF</a>
+    <a class="thesis-cta-secondary" href="https://www.proquest.com/dissertations-theses/deep-learning-based-particle-identification-gluex/docview/3206450220/se-2" target="_blank" rel="noopener noreferrer">ProQuest record</a>
+  </div>
+</div>
 
-### Core ML Methodology & Tools
+### Selected references
 
-- Schmidhuber (2015). "Deep Learning." *Neural Networks*. DOI: 10.1016/j.neunet.2014.09.003
-- Bergstra & Bengio (2012). "Random search for hyperparameter optimization." *JMLR*, 13, 281-305. http://jmlr.org/papers/v13/bergstra12a.html
-- Kingma & Ba (2015). "Adam: A method for stochastic optimization." arXiv. https://arxiv.org/abs/1412.6980
-- PyTorch Adam Optimizer Documentation: https://pytorch.org/docs/stable/optim.html
-- ROOT Data Analysis Framework: https://root.cern/
-- Karpathy (2016). "A Recipe for Training Neural Networks." https://karpathy.github.io/
-
----
-
-*Published: April 17, 2025 | Research conducted at Lamar University in collaboration with Jefferson Laboratory*
+- Kingma &amp; Ba (2015). *Adam: A Method for Stochastic Optimization.* ICLR.
+- Bergstra &amp; Bengio (2012). *Random Search for Hyper-Parameter Optimization.* JMLR.
+- Radovic et al. (2018). *Machine learning at the energy and intensity frontiers of particle physics.* Nature.
+- Palo &amp; Molzon (2024). Neural nets for drift-chamber track position. *Nucl. Instrum. Methods A.*
+- PyTorch Optimizer docs; ROOT Data Analysis Framework.
