@@ -2,8 +2,9 @@
   const config = window.GH_REPOS_CONFIG;
   if (!config) return;
 
-  const CACHE_KEY = `gh-repos-cache:${config.username}`;
-  const CACHE_TTL_MS = 60 * 60 * 1000;
+  // Bump the key version whenever featured repos change so browsers drop stale caches.
+  const CACHE_KEY = `gh-repos-cache-v3:${config.username}`;
+  const CACHE_TTL_MS = 15 * 60 * 1000;
 
   const LANGUAGE_COLORS = {
     Python: "#3572A5",
@@ -55,6 +56,9 @@
 
   async function loadData() {
     try {
+      // Drop older cache key formats so new repos show up after a deploy.
+      localStorage.removeItem(`gh-repos-cache:${config.username}`);
+      localStorage.removeItem(`gh-repos-cache-v2:${config.username}`);
       const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
       if (cached && Date.now() - cached.savedAt < CACHE_TTL_MS) return cached;
     } catch (_) {

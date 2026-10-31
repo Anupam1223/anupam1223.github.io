@@ -29,6 +29,13 @@ featured:
     icon: 🎓
     blurb: Slide-by-slide React visualizations that teach ML theory and systems.
     repos:
+      - name: MLFastAPI
+        description: Interactive walkthrough of serving ML models with FastAPI — API fundamentals, Pydantic validation, model serialization, testing, async performance, and containerized deployment.
+        tags: [React, FastAPI, ML Serving]
+        demo: ml-fastapi-app
+      - name: DockerContainerization
+        description: Interactive deck on Docker for ML workflows — images vs containers, layering, volumes, networking, and packaging services for deployment.
+        tags: [React, Docker, DevOps]
       - name: MLArchitecture
         description: Interactive deck on ML systems architecture — AI compute foundations, on-prem design, cloud platforms, containers and orchestration, performance tuning, and cost management.
         tags: [React, MLOps, Systems]
@@ -59,6 +66,9 @@ featured:
       - name: codolytics
         description: Backend for a developer-analytics platform that mines Git activity, running as Dockerized Python services managed with Poetry.
         tags: [Python, Docker, Analytics]
+      - name: MLOPs-Certificates
+        description: Collected certificates from Google Cloud MLOps coursework covering production ML pipelines, monitoring, and cloud deployment practices.
+        tags: [MLOps, Certificates, GCP]
 
   - category: Tensor Networks
     icon: ⚛️
