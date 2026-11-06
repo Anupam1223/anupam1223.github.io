@@ -104,6 +104,19 @@ nav_order: 3
     <button class="project-card__btn" onclick="openProjectModal('ml-fastapi-app')">View Project</button>
   </div>
 
+  <div class="project-card">
+    <div class="project-card__badge">Interactive</div>
+    <div class="project-card__icon">🐳</div>
+    <h3 class="project-card__title">Docker Containerization</h3>
+    <p class="project-card__desc">An interactive walkthrough of Docker for ML workflows — images vs containers, layering, volumes, networking, and packaging services for deployment.</p>
+    <div class="project-card__tags">
+      <span class="project-tag">React</span>
+      <span class="project-tag">Docker</span>
+      <span class="project-tag">DevOps</span>
+    </div>
+    <button class="project-card__btn" onclick="openProjectModal('docker-app')">View Project</button>
+  </div>
+
 </div>
 
 <!-- Modal Overlay -->

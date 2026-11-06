@@ -36,6 +36,7 @@ featured:
       - name: DockerContainerization
         description: Interactive deck on Docker for ML workflows — images vs containers, layering, volumes, networking, and packaging services for deployment.
         tags: [React, Docker, DevOps]
+        demo: docker-app
       - name: MLArchitecture
         description: Interactive deck on ML systems architecture — AI compute foundations, on-prem design, cloud platforms, containers and orchestration, performance tuning, and cost management.
         tags: [React, MLOps, Systems]

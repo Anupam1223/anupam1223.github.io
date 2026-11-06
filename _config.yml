@@ -186,6 +186,8 @@ exclude:
   - _projects/MLArchitecture/dist
   - _projects/MLFastAPI/node_modules
   - _projects/MLFastAPI/dist
+  - _projects/DockerContainerization/node_modules
+  - _projects/DockerContainerization/dist
   - CONTRIBUTING.md
   - CUSTOMIZE.md
   - Dockerfile
